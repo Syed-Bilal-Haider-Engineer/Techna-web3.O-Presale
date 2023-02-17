@@ -1,12 +1,14 @@
 import "./App.css";
+import Footer from "./Components/Footer";
 import Header from "./Components/Header";
-import HeroSection from "./Pages/HeroSection";
+import TechnaSwap from "./Components/TechnaSwap";
 
 function App() {
   return (
     <div>
       <Header />
-      <HeroSection />
+      <TechnaSwap />
+      <Footer />
     </div>
   );
 }

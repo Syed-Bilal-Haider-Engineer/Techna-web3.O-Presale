@@ -1,4 +1,4 @@
-import { Alert, Box, Snackbar } from "@mui/material";
+import { Alert, Box, Snackbar, Typography } from "@mui/material";
 import { Button } from "@mui/material";
 
 export function ToastNotify({ alertState, setAlertState }) {
@@ -26,21 +26,21 @@ export function StyledButton({ children, ...props }) {
       <Button
         {...props}
         sx={{
-          color: "#ffffff",
-          background:
-            "radial-gradient(145.24% 943.2% at 7.91% 50%, #1c85fe91 0%, #be4bc870 40%)",
-          fontSize: "18px",
+          color: "#05000A",
+          background: "#00FF75",
+          fontSize: "20px",
           boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
           textTransform: "capitalize",
-          //   fontFamily: "Josefin Sans",
-          borderRadius: "12px",
+          fontWeight: 700,
+          fontFamily: "Montserrat",
+          borderRadius: "15px",
+          padding: props.padding,
           width: props.width,
           "&.Mui-disabled": {
             color: "#979EA7",
           },
           "&:hover": {
-            background:
-              "radial-gradient(145.24% 943.2% at 7.91% 50%, #be4bc870 0%, #1c85fe91 40%)",
+            background: "#00FF75",
           },
         }}
       >
@@ -50,39 +50,76 @@ export function StyledButton({ children, ...props }) {
   );
 }
 
-export function StyledText({ children, ...props }) {
+export function CustomButton({ children, ...props }) {
   return (
     <>
-      <Box
+      <Button
         {...props}
         sx={{
-          color: "#000000",
-          fontSize: "18px",
-          //   fontFamily: "Josefin Sans",
-          fontWeight: "500",
+          fontFamily: "Montserrat",
+          fontWeight: props.fontWeight,
+          fontSize: "20px",
+          color: props.color,
           mr: props.mr,
         }}
       >
         {children}
-      </Box>
+      </Button>
     </>
   );
 }
-export function StyledTitle({ children, ...props }) {
+export function StyledText({ children, ...props }) {
   return (
     <>
-      <Box
+      <Typography
         {...props}
         sx={{
-          color: "#000000",
-          fontSize: "40px",
-          //   fontFamily: "Josefin Sans",
-          fontWeight: "700",
+          fontFamily: "Montserrat",
+          fontWeight: props.fontWeight,
+          fontSize: "20px",
+          color: props.color,
           mr: props.mr,
         }}
       >
         {children}
-      </Box>
+      </Typography>
+    </>
+  );
+}
+export function StyledTextNav({ children, ...props }) {
+  return (
+    <>
+      <Typography
+        {...props}
+        sx={{
+          fontFamily: "Montserrat",
+          fontWeight: props.fontWeight,
+          fontSize: "20px",
+          color: "#8C9296",
+          my: props.my,
+        }}
+      >
+        {children}
+      </Typography>
+    </>
+  );
+}
+export function StyledTextNormal({ children, ...props }) {
+  return (
+    <>
+      <Typography
+        {...props}
+        sx={{
+          color: props.color,
+          fontSize: props.fontSize,
+          fontFamily: "Montserrat",
+          fontWeight: 600,
+          mr: props.mr,
+          mt: props.mt,
+        }}
+      >
+        {children}
+      </Typography>
     </>
   );
 }

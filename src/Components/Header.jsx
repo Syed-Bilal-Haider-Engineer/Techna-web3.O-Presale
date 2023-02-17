@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import {
   Container,
   Hidden,
-  useMediaQuery,
   SwipeableDrawer,
   Button,
   List,
@@ -14,10 +13,10 @@ import {
 import { makeStyles } from "@mui/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import clsx from "clsx";
-import { logo } from "./SmallComponents/Images";
+import { Logo } from "./Images";
 
 import { AppContext } from "../utils";
-import { StyledButton, StyledText } from "./SmallComponents/AppComponents";
+import { StyledButton } from "./SmallComponents/AppComponents";
 
 const useStyles = makeStyles({
   list: {
@@ -43,7 +42,7 @@ export default function Header() {
   const [state, setState] = React.useState({
     left: false,
   });
-  const matches1 = useMediaQuery("(max-width:1279px)");
+  // const matches1 = useMediaQuery("(max-width:1279px)");
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -65,40 +64,44 @@ export default function Header() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <Box display="flex" justifyContent="center">
-        <img width="150px" src={logo} alt="" />
+        <img width="200px" src={Logo} alt="" />
       </Box>
       <List>
-        {["About", "Services", "Roadmap", "FAQ", "Statistic"].map(
-          (text, index) => (
-            <ListItem
-              button
+        {["Trade", "Earn", "Blog"].map((text, index) => (
+          <ListItem
+            button
+            style={{
+              justifyContent: "center",
+            }}
+            key={text}
+          >
+            <ListItemText
               style={{
-                justifyContent: "center",
+                textTransform: "capitalize",
+                textAlign: "center",
+                textDecoration: "none",
+                cursor: "pointer",
+                color: "#ffffff",
               }}
-              key={text}
-            >
-              <ListItemText
-                style={{
-                  textTransform: "capitalize",
-                  textAlign: "center",
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  color: "#ffffff",
-                }}
-                primary={text}
-              />
-            </ListItem>
-          )
-        )}
+              primary={text}
+            />
+          </ListItem>
+        ))}
       </List>
       <Box mb={1} display="flex" justifyContent="center">
+        <StyledButton
+          padding="9px 19px"
+          style={{ color: "#fff", background: "transparent" }}
+        >
+          WhitePaper
+        </StyledButton>
         {account ? (
           <StyledButton width="90%" onClick={() => disconnect()}>
             {account.slice(0, 4) + "..." + account.slice(-4)}
           </StyledButton>
         ) : (
           <StyledButton width="90%" onClick={() => connect()}>
-            Connect
+            Connect Wallet
           </StyledButton>
         )}
       </Box>
@@ -108,40 +111,41 @@ export default function Header() {
     <>
       <Box
         sx={{
-          background: "transparent",
+          background: [
+            // "rgba(24, 24, 24, 0.5)",
+            "linear-gradient(123.56deg, #0E2929 28.46%, #150D1C 90.07%)",
+          ],
+          backdropFilter: "blur(27.5px)",
         }}
-        height="92px"
         width="100%"
-        py={1}
+        py={2}
       >
-        <Container maxWidth="xl">
+        <Container maxWidth="lg">
           <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
           >
-            <img width="60px" src={logo} alt="" />
-            <Box
-              display="flex"
-              justifyContent={matches1 ? "end" : "space-between"}
-              alignItems="center"
-            >
-              <Hidden mdDown>
-                <StyledText mr={6}>About</StyledText>
-                <StyledText mr={6}>Services</StyledText>
-                <StyledText mr={6}>Roadmap</StyledText>
-                <StyledText mr={6}>FAQ</StyledText>
-                {account ? (
-                  <StyledButton width="150px" onClick={() => disconnect()}>
-                    {account.slice(0, 4) + "..." + account.slice(-4)}
-                  </StyledButton>
-                ) : (
-                  <StyledButton width="150px" onClick={() => connect()}>
-                    Connect
-                  </StyledButton>
-                )}
-              </Hidden>
-
+            <Box>
+              <img width="90%" src={Logo} alt="" />
+            </Box>
+            {/* <Hidden mdDown>
+              <Box display="flex" alignItems="center" gap={5}>
+                <StyledText fontWeight={700} color="#fff" trade="trade">
+                  Trade
+                </StyledText>
+                <StyledText fontWeight={500} color="#8C9296">
+                  Earn
+                </StyledText>
+                <StyledText fontWeight={500} color="#8C9296">
+                  Perpertual
+                </StyledText>
+                <StyledText fontWeight={500} color="#8C9296">
+                  Blog
+                </StyledText>
+              </Box>
+            </Hidden> */}
+            <Box>
               <Hidden mdUp>
                 {["left"].map((anchor) => (
                   <React.Fragment key={anchor}>
@@ -153,7 +157,7 @@ export default function Header() {
                         style={{
                           fontSize: "38px",
                           cursor: "pointer",
-                          color: "#000000",
+                          color: "#fff",
                         }}
                       ></MenuIcon>
                     </Button>
@@ -171,9 +175,41 @@ export default function Header() {
                   </React.Fragment>
                 ))}
               </Hidden>
+              <Hidden mdDown>
+                <Box display="flex" alignItems="center" gap={3}>
+                  <StyledButton
+                    padding="9px 19px"
+                    style={{ color: "#fff", background: "transparent" }}
+                  >
+                    WhitePaper
+                  </StyledButton>
+                  {account ? (
+                    <StyledButton onClick={() => disconnect()}>
+                      {account.slice(0, 4) + "..." + account.slice(-4)}
+                    </StyledButton>
+                  ) : (
+                    <StyledButton padding="9px 19px" onClick={() => connect()}>
+                      Connect Wallet
+                    </StyledButton>
+                  )}
+                </Box>
+              </Hidden>
             </Box>
           </Box>
         </Container>
+        {/* <hr style={{ border: "1px solid #8C9296", margin: "13px 0px" }} /> */}
+        {/* <Hidden mdDown>
+          <Container maxWidth="lg">
+            <Box display="flex" alignItems="center" gap={4}>
+              <StyledTextNav fontWeight={500}> Swap</StyledTextNav>
+              <StyledTextNav fontWeight={500}>Liquidity</StyledTextNav>
+              <StyledTextNav fontWeight={500}>Perpetual</StyledTextNav>
+              <StyledTextNav fontWeight={700} style={{ color: "#00FF75" }}>
+                Options
+              </StyledTextNav>
+            </Box>
+          </Container>
+        </Hidden> */}
       </Box>
     </>
   );
