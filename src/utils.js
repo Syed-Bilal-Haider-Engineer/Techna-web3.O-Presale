@@ -12,11 +12,11 @@ const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider, // required
     options: {
-      networkUrl: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+      networkUrl: "https://matic-mumbai.chainstacklabs.com",
       rpc: {
-        97: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+        80001: "https://matic-mumbai.chainstacklabs.com",
       },
-      chainId: 97,
+      chainId: 80001,
     },
   },
 };
@@ -24,11 +24,11 @@ const web3Modal = new Web3Modal({
   // cacheProvider: true,
   providerOptions,
   theme: {
-    background: "#000000",
+    background: "#033155",
     main: "rgb(199, 199, 199)",
     secondary: "rgb(136, 136, 136)",
     // border: "rgba(195, 195, 195, 0.14)",
-    hover: "rgb(16, 26, 32)",
+    hover: "#008EA8",
   },
 });
 export function getLibrary(provider) {

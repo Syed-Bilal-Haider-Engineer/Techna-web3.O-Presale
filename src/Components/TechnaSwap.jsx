@@ -4,48 +4,15 @@ import {
   StyledText,
   StyledTextNormal,
   StyledButton,
+  SelectInput,
 } from "./SmallComponents/AppComponents";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { UsdT2, Tch } from "./Images";
-import { styled } from "@mui/system";
-
-const CustomTextField = styled(TextField)({
-  fontFamily: "Montserrat",
-  fontWeight: "500",
-  "& label.Mui-focused": {
-    color: "#fff",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "transparent",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "#3F3B42",
-      border: "2px solid #3F3B42",
-      borderRadius: "15px",
-    },
-    "&:hover fieldset": {
-      borderColor: "#3F3B42",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#3F3B42",
-    },
-  },
-  input: {
-    "&::placeholder": {
-      textOverflow: "ellipsis !important",
-      color: "#fff !important",
-    },
-    fontSize: { xs: "20px", md: "24px" },
-    fontWeight: 700,
-    color: "#FFF",
-  },
-  background: "transparent",
-  width: "100%",
-  color: "#fff",
-});
+import { useState } from "react";
 
 const TechnaSwap = () => {
+  const [selects, setselect] = useState(0);
+
   return (
     <Box
       sx={{
@@ -99,34 +66,52 @@ const TechnaSwap = () => {
                 network
               </StyledTextNormal>
               <hr style={{ border: "1px solid #8C9296", marginTop: "17px" }} />
-              <Box display="flex" alignItems="center" gap={1} my={3}>
-                <img src={UsdT2} alt="" />
-                <StyledText color="#fff" fontWeight={700}>
-                  USDT
-                </StyledText>
-                <KeyboardArrowDown sx={{ color: "#8A858D" }} />
+              <Box mt={1}>
+                <SelectInput selects={selects} setselect={setselect} />
               </Box>
-              <CustomTextField
-                autoComplete="off"
-                id="standard-name"
-                sx={{}}
-                name="name"
-                type="number"
-                placeholder={"0.00"}
-                InputProps={{}}
-                required={true}
-              />
-
               <Box display="flex" alignItems="center" gap={1} mt={6} mb={3}>
                 <img src={Tch} alt="" />
                 <StyledText color="#fff" fontWeight={700}>
                   TCN
                 </StyledText>
               </Box>
-              <CustomTextField
+              <TextField
                 autoComplete="off"
                 id="standard-name"
-                sx={{}}
+                sx={{
+                  fontFamily: "Montserrat",
+                  "& label.Mui-focused": {
+                    color: "#fff",
+                  },
+                  "& .MuiInput-underline:after": {
+                    borderBottomColor: "transparent",
+                  },
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": {
+                      borderColor: "#3F3B42",
+                      border: "2px solid #3F3B42",
+                      borderRadius: "15px",
+                    },
+                    "&:hover fieldset": {
+                      borderColor: "#3F3B42",
+                    },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#3F3B42",
+                    },
+                  },
+                  input: {
+                    "&::placeholder": {
+                      textOverflow: "ellipsis !important",
+                      color: "#fff !important",
+                    },
+                    fontSize: { xs: "20px", md: "24px" },
+                    fontWeight: 700,
+                    color: "#FFF",
+                  },
+                  background: "transparent",
+                  width: "100%",
+                  color: "#fff",
+                }}
                 name="name"
                 type="number"
                 placeholder={"0.00"}
