@@ -148,8 +148,8 @@ export function SelectInput({ selects, setselect, ...props }) {
   const [openDialog, setOpenDialog] = useState(false);
   const [search, setSearch] = useState("");
   const [selecter, setSelecter] = useState({
-    img: select,
-    tokens: "Select to",
+    img: eth,
+    tokens: "ETH",
   });
   console.log(selecter, "setSlecter");
 

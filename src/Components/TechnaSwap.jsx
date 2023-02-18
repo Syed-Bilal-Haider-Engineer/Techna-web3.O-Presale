@@ -1,18 +1,36 @@
 import React from "react";
 import { Box, Container, Grid, TextField, Typography } from "@mui/material";
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress";
+
 import {
   StyledText,
   StyledTextNormal,
   StyledButton,
   SelectInput,
 } from "./SmallComponents/AppComponents";
-import { KeyboardArrowDown } from "@mui/icons-material";
-import { UsdT2, Tch } from "./Images";
-import { useState } from "react";
 
+import { Tch } from "./Images";
+import { useState } from "react";
+import { styled } from "@mui/material/styles";
+
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 20,
+  borderRadius: 15,
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor:
+      theme.palette.grey[theme.palette.mode === "#889195" ? 200 : 800],
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 10,
+    // backgroundColor: theme.palette.mode === "light" ? "red" : "#308fe8",
+    backgroundImage:
+      "linear-gradient(to right, #0ac7bf, #00a0b2, #00799c, #00537c, #163055, #163055, #163055, #163055, #00537c, #00799c, #00a0b2, #0ac7bf)",
+  },
+}));
 const TechnaSwap = () => {
   const [selects, setselect] = useState(0);
-
   return (
     <Box
       sx={{
@@ -40,7 +58,7 @@ const TechnaSwap = () => {
             <span style={{ color: "#8F32D8" }}>Na</span>
           </Typography>
         </Box>
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" spacing={5}>
           <Grid item xs={12} sm={6} md={5}>
             <Box
               sx={{
@@ -122,6 +140,62 @@ const TechnaSwap = () => {
                 <StyledButton width="100%" padding="15px">
                   Connect Wallet
                 </StyledButton>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Box
+              sx={{
+                background: "rgba(24, 24, 24, 0.5)",
+                backdropFilter: "blur(62.5px)",
+                borderRadius: "15px",
+                py: 2,
+                px: 3,
+              }}
+            >
+              <StyledText color="#fff" fontWeight={700} textAlign="center">
+                Phase 1
+              </StyledText>
+              <StyledTextNormal
+                color="#8C9296"
+                textAlign="center"
+                fontSize="16px"
+              >
+                Buy TCN on the
+                <span style={{ margin: "0px 5px", color: "#BD69FF" }}>
+                  Polygon
+                </span>
+                network
+              </StyledTextNormal>
+              <hr style={{ border: "1px solid #8C9296", marginTop: "17px" }} />
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                my={3}
+              >
+                <StyledText color="#fff" fontWeight={700}>
+                  Current Token Price
+                </StyledText>
+                <StyledText color="#fff" fontWeight={700}>
+                  0.00
+                </StyledText>
+              </Box>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                mb={3}
+              >
+                <StyledText color="#fff" fontWeight={700}>
+                  Sold Token
+                </StyledText>
+                <StyledText color="#fff" fontWeight={700}>
+                  0.00
+                </StyledText>
+              </Box>
+              <Box mb={5}>
+                <BorderLinearProgress variant="determinate" value={50} />
               </Box>
             </Box>
           </Grid>
