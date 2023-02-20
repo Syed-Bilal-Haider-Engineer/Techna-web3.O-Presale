@@ -74,6 +74,7 @@ const TechnaSwap = () => {
                 borderRadius: "15px",
                 py: 2,
                 px: 3,
+                border: "2px solid #514A56",
               }}
             >
               <StyledText color="#fff" fontWeight={700} textAlign="center">
@@ -170,6 +171,7 @@ const TechnaSwap = () => {
                 borderRadius: "15px",
                 py: 2,
                 px: 3,
+                border: "2px solid #514A56",
               }}
             >
               <StyledText color="#fff" fontWeight={700} textAlign="center">
@@ -202,14 +204,27 @@ const TechnaSwap = () => {
                   0.00
                 </StyledText>
               </Box>
-              {/* <Box mb={4}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                mb={3}
+              >
+                <StyledText color="#fff" fontWeight={700}>
+                  Sold Token
+                </StyledText>
+                <StyledText color="#fff" fontWeight={700}>
+                  0.00
+                </StyledText>
+              </Box>
+              <Box mb={4}>
                 <BorderLinearProgress variant="determinate" value={50} />
-              </Box> */}
+              </Box>
             </Box>
 
             {/* phase 2 */}
 
-            <Box
+            {/* <Box
               sx={{
                 background: "rgba(24, 24, 24, 0.5)",
                 backdropFilter: "blur(62.5px)",
@@ -253,7 +268,7 @@ const TechnaSwap = () => {
               <Box mb={4}>
                 <BorderLinearProgress variant="determinate" value={20} />
               </Box>
-            </Box>
+            </Box> */}
           </Grid>
         </Grid>
         <StyledTextNormal

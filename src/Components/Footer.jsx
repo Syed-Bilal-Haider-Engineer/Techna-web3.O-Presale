@@ -29,17 +29,18 @@ const CustomTextField = styled(TextField)({
     color: "#000",
   },
   "& .MuiInput-underline:after": {
-    borderBottomColor: "transparent",
+    borderBottomColor: "#262626",
   },
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "transparent",
+      borderColor: "#262626",
     },
     "&:hover fieldset": {
-      borderColor: "#8C9296",
+      borderColor: "#262626",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "transparent",
+      borderColor: "#262626",
+      borderRadius: "50px",
     },
   },
   input: {
@@ -49,7 +50,7 @@ const CustomTextField = styled(TextField)({
     },
     fontSize: { xs: "12px", md: "14px" },
   },
-  background: "#Fff",
+  background: "#000",
 });
 const Footer = () => {
   return (
