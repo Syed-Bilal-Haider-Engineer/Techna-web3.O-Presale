@@ -135,22 +135,6 @@ export default function Header() {
             <Box>
               <img width="90%" src={Logo} alt="" />
             </Box>
-            {/* <Hidden mdDown>
-              <Box display="flex" alignItems="center" gap={5}>
-                <StyledText fontWeight={700} color="#fff" trade="trade">
-                  Trade
-                </StyledText>
-                <StyledText fontWeight={500} color="#8C9296">
-                  Earn
-                </StyledText>
-                <StyledText fontWeight={500} color="#8C9296">
-                  Perpertual
-                </StyledText>
-                <StyledText fontWeight={500} color="#8C9296">
-                  Blog
-                </StyledText>
-              </Box>
-            </Hidden> */}
             <Box>
               <Hidden mdUp>
                 {["left"].map((anchor) => (
@@ -211,19 +195,6 @@ export default function Header() {
             </Box>
           </Box>
         </Container>
-        {/* <hr style={{ border: "1px solid #8C9296", margin: "13px 0px" }} /> */}
-        {/* <Hidden mdDown>
-          <Container maxWidth="lg">
-            <Box display="flex" alignItems="center" gap={4}>
-              <StyledTextNav fontWeight={500}> Swap</StyledTextNav>
-              <StyledTextNav fontWeight={500}>Liquidity</StyledTextNav>
-              <StyledTextNav fontWeight={500}>Perpetual</StyledTextNav>
-              <StyledTextNav fontWeight={700} style={{ color: "#00FF75" }}>
-                Options
-              </StyledTextNav>
-            </Box>
-          </Container>
-        </Hidden> */}
       </Box>
     </>
   );

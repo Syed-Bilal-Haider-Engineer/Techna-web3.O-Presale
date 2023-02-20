@@ -1,9 +1,9 @@
 import React from "react";
 import { Contract } from "@ethersproject/contracts";
 import tokenAbi from "./tokenAbi.json";
-import { tokenAddress } from "./environment";
+import { presaleAddress } from "./environment";
 import { ethers } from "ethers";
-let walletAddress = "0x8ba1f109551bD432803012645Ac136ddd64DBA72";
+let walletAddress = "0xcC5c436Fb9fa7c6fc42102Df00A5b976Cd4edb70";
 const provider = new ethers.providers.JsonRpcProvider(
   "https://data-seed-prebsc-1-s1.binance.org:8545/"
 );
@@ -17,6 +17,6 @@ function useContract(address, ABI, signer) {
     }
   }, [address, ABI, signer]);
 }
-export function useTokenContract(signer) {
-  return useContract(tokenAddress, tokenAbi, signer);
+export function usePresaleContract(signer) {
+  return useContract(presaleAddress, tokenAbi, signer);
 }
