@@ -3,6 +3,7 @@ import {
   Box,
   Dialog,
   Divider,
+  InputBase,
   Snackbar,
   TextField,
   Typography,
@@ -15,7 +16,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 // import { eth } from "./Images";
 import { styled } from "@mui/styles";
-import { eth, select, UsdT2, Busd, Udsc } from "../Images";
+import { eth, select, UsdT2, Busd, Udsc, bnb, matic } from "../Images";
 
 export function ToastNotify({ alertState, setAlertState }) {
   return (
@@ -51,6 +52,7 @@ export function StyledButton({ children, ...props }) {
           fontFamily: "Montserrat",
           borderRadius: "15px",
           padding: props.padding,
+          boxShadow: props.boxShadow,
           width: props.width,
           "&.Mui-disabled": {
             color: "#979EA7",
@@ -92,9 +94,10 @@ export function StyledText({ children, ...props }) {
         sx={{
           fontFamily: "Montserrat",
           fontWeight: props.fontWeight,
-          fontSize: "20px",
+          fontSize: { xs: "16px", md: "20px" },
           color: props.color,
           mr: props.mr,
+          textAlign: props.textAlign,
         }}
       >
         {children}
@@ -110,9 +113,10 @@ export function StyledTextNav({ children, ...props }) {
         sx={{
           fontFamily: "Montserrat",
           fontWeight: props.fontWeight,
-          fontSize: "20px",
+          fontSize: { xs: "17px", md: "20px" },
           color: "#8C9296",
           my: props.my,
+          textAlign: props.textAlign,
         }}
       >
         {children}
@@ -141,6 +145,26 @@ export function StyledTextNormal({ children, ...props }) {
 }
 
 //
+const TextInput = styled(InputBase)({
+  "& .MuiInputBase-input": {
+    position: "relative",
+    borderRadius: "5px",
+    color: "#FFF",
+    fontSize: "20px",
+    marginLeft: "10px",
+    fontWeight: "400",
+    backgroundColor: "transparent",
+    padding: "10px",
+    "&::-webkit-outer-spin-button": {
+      WebkitAppearance: "none",
+      margin: 0,
+    },
+    "&::-webkit-inner-spin-button": {
+      WebkitAppearance: "none",
+      margin: 0,
+    },
+  },
+});
 
 export function SelectInput({ selects, setselect, ...props }) {
   const matches = useMediaQuery("(min-width:1050px)");
@@ -151,7 +175,7 @@ export function SelectInput({ selects, setselect, ...props }) {
     img: eth,
     tokens: "ETH",
   });
-  console.log(selecter, "setSlecter");
+  // console.log(selecter, "setSlecter");
 
   const tokenArray = [
     {
@@ -174,6 +198,16 @@ export function SelectInput({ selects, setselect, ...props }) {
       tokens: "BUSD",
       id: 4,
     },
+    {
+      img: matic,
+      tokens: "Matic",
+      id: 5,
+    },
+    {
+      img: bnb,
+      tokens: "BNB",
+      id: 6,
+    },
   ];
   return (
     <>
@@ -184,10 +218,11 @@ export function SelectInput({ selects, setselect, ...props }) {
         sx={{
           zIndex: 100,
           "& .MuiPaper-root": {
-            backgroundColor: "#0E2436",
+            backgroundColor: "#0D0C0E",
             borderRadius: "30px",
             width: { md: "27%", xs: "100%" },
             height: "500px",
+            border: "1px solid #8C9296",
           },
         }}
       >
@@ -208,7 +243,7 @@ export function SelectInput({ selects, setselect, ...props }) {
                 color: "#fff",
               }}
             >
-              Select Cauldron
+              Select Token
             </Typography>
             <CloseIcon
               style={{
@@ -220,7 +255,24 @@ export function SelectInput({ selects, setselect, ...props }) {
               }}
             />
           </Box>
-          <Divider sx={{ background: "#66656E", marginTop: "30px" }} />
+          <Box
+            mt={1}
+            mb={3}
+            sx={{
+              background: "hsla(0,0%,100%,.1)",
+              height: "50px",
+              width: "100%",
+              borderRadius: "20px",
+            }}
+          >
+            <TextInput
+              placeholder="Search"
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </Box>
+          {/* <Divider sx={{ background: "#66656E", marginTop: "30px" }} /> */}
           {tokenArray.map((item, i) => {
             return (
               <>
@@ -257,18 +309,6 @@ export function SelectInput({ selects, setselect, ...props }) {
                     >
                       {item.tokens}
                     </Typography>
-                    <Typography
-                      ml={1}
-                      mt={1}
-                      sx={{
-                        fontSize: "13px",
-                        fontFamily: "Montserrat",
-                        fontWeight: "600",
-                        color: "#66656E",
-                      }}
-                    >
-                      0%
-                    </Typography>
                   </Box>
                   <Box
                     sx={{
@@ -282,7 +322,7 @@ export function SelectInput({ selects, setselect, ...props }) {
                   </Box>
                 </Box>
 
-                <Divider sx={{ background: "#66656E" }} />
+                {/* <Divider sx={{ background: "#66656E" }} /> */}
               </>
             );
           })}
@@ -324,6 +364,7 @@ export function SelectInput({ selects, setselect, ...props }) {
         {...props}
         placeholder="0.00"
         type="number"
+        inputMode="numeric"
         autoComplete="off"
         id="standard-name"
         sx={{
@@ -355,6 +396,14 @@ export function SelectInput({ selects, setselect, ...props }) {
             fontSize: { xs: "20px", md: "24px" },
             fontWeight: 700,
             color: "#fff",
+            "&::-webkit-outer-spin-button": {
+              WebkitAppearance: "none",
+              margin: 0,
+            },
+            "&::-webkit-inner-spin-button": {
+              WebkitAppearance: "none",
+              margin: 0,
+            },
           },
           background: "transparent",
           width: "100%",

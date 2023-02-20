@@ -16,7 +16,7 @@ import clsx from "clsx";
 import { Logo } from "./Images";
 
 import { AppContext } from "../utils";
-import { StyledButton } from "./SmallComponents/AppComponents";
+import { StyledButton, StyledText } from "./SmallComponents/AppComponents";
 
 const useStyles = makeStyles({
   list: {
@@ -64,7 +64,7 @@ export default function Header() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <Box display="flex" justifyContent="center">
-        <img width="200px" src={Logo} alt="" />
+        <img width="140px" src={Logo} alt="" />
       </Box>
       <List>
         {["Trade", "Earn", "Blog"].map((text, index) => (
@@ -88,13 +88,19 @@ export default function Header() {
           </ListItem>
         ))}
       </List>
-      <Box mb={1} display="flex" justifyContent="center">
-        <StyledButton
+      <Box
+        mb={1}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        flexDirection="column"
+      >
+        <StyledText
           padding="9px 19px"
           style={{ color: "#fff", background: "transparent" }}
         >
           WhitePaper
-        </StyledButton>
+        </StyledText>
         {account ? (
           <StyledButton width="90%" onClick={() => disconnect()}>
             {account.slice(0, 4) + "..." + account.slice(-4)}
@@ -177,12 +183,20 @@ export default function Header() {
               </Hidden>
               <Hidden mdDown>
                 <Box display="flex" alignItems="center" gap={3}>
-                  <StyledButton
-                    padding="9px 19px"
-                    style={{ color: "#fff", background: "transparent" }}
+                  <a
+                    href=""
+                    style={{
+                      textDecoration: "none",
+                    }}
                   >
-                    WhitePaper
-                  </StyledButton>
+                    <StyledText
+                      padding="9px 19px"
+                      color="#fff"
+                      fontWeight={700}
+                    >
+                      WhitePaper
+                    </StyledText>
+                  </a>
                   {account ? (
                     <StyledButton onClick={() => disconnect()}>
                       {account.slice(0, 4) + "..." + account.slice(-4)}

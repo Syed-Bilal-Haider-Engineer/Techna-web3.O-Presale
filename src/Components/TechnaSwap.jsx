@@ -11,7 +11,7 @@ import {
   SelectInput,
 } from "./SmallComponents/AppComponents";
 
-import { Tch } from "./Images";
+import { Tch, swapBg } from "./Images";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 
@@ -34,9 +34,12 @@ const TechnaSwap = () => {
   return (
     <Box
       sx={{
-        backgroundImage:
-          "linear-gradient(to right, #0ac7bf, #00a0b2, #00799c, #00537c, #163055, #163055, #163055, #163055, #00537c, #00799c, #00a0b2, #0ac7bf)",
         py: "50px",
+        bgcolor: "#130020",
+        backgroundImage: `url(${swapBg})`,
+        backgroundSize: "100% 100%",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <Container maxWidth="lg">
@@ -45,7 +48,7 @@ const TechnaSwap = () => {
             sx={{
               fontFamily: "Montserrat",
               fontWeight: 700,
-              fontSize: "48px",
+              fontSize: { xs: "38px", md: "48px" },
               lineHeight: "60px",
               textAlign: "center",
               color: "#FFFFFF",
@@ -58,8 +61,12 @@ const TechnaSwap = () => {
             <span style={{ color: "#8F32D8" }}>Na</span>
           </Typography>
         </Box>
-        <Grid container justifyContent="center" spacing={5}>
-          <Grid item xs={12} sm={6} md={5}>
+        <Grid
+          container
+          justifyContent="space-between"
+          spacing={{ xs: 3, md: 0 }}
+        >
+          <Grid item xs={12} sm={6} md={6}>
             <Box
               sx={{
                 background: "rgba(24, 24, 24, 0.5)",
@@ -126,24 +133,36 @@ const TechnaSwap = () => {
                     fontWeight: 700,
                     color: "#FFF",
                   },
+
                   background: "transparent",
                   width: "100%",
                   color: "#fff",
                 }}
                 name="name"
-                type="number"
+                type="phone"
                 placeholder={"0.00"}
                 InputProps={{}}
                 required={true}
               />
-              <Box my="45px">
-                <StyledButton width="100%" padding="15px">
-                  Connect Wallet
+              <Box
+                my="45px"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <StyledButton
+                  width="100%"
+                  padding="11px"
+                  boxShadow="1px 39px 45px -1px rgba(0,85,55,0.7)"
+                  WebkitBoxShadow="1px 39px 45px -1px rgba(0,85,55,0.7)"
+                  MozBoxShadow="1px 39px 45px -1px rgba(0,85,55,0.7)"
+                >
+                  Buy
                 </StyledButton>
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={5}>
             <Box
               sx={{
                 background: "rgba(24, 24, 24, 0.5)",
@@ -156,17 +175,6 @@ const TechnaSwap = () => {
               <StyledText color="#fff" fontWeight={700} textAlign="center">
                 Phase 1
               </StyledText>
-              <StyledTextNormal
-                color="#8C9296"
-                textAlign="center"
-                fontSize="16px"
-              >
-                Buy TCN on the
-                <span style={{ margin: "0px 5px", color: "#BD69FF" }}>
-                  Polygon
-                </span>
-                network
-              </StyledTextNormal>
               <hr style={{ border: "1px solid #8C9296", marginTop: "17px" }} />
               <Box
                 display="flex"
@@ -188,14 +196,62 @@ const TechnaSwap = () => {
                 mb={3}
               >
                 <StyledText color="#fff" fontWeight={700}>
-                  Sold Token
+                  Token Balance
                 </StyledText>
                 <StyledText color="#fff" fontWeight={700}>
                   0.00
                 </StyledText>
               </Box>
-              <Box mb={5}>
+              {/* <Box mb={4}>
                 <BorderLinearProgress variant="determinate" value={50} />
+              </Box> */}
+            </Box>
+
+            {/* phase 2 */}
+
+            <Box
+              sx={{
+                background: "rgba(24, 24, 24, 0.5)",
+                backdropFilter: "blur(62.5px)",
+                borderRadius: "15px",
+                py: 2,
+                px: 3,
+                mt: 3,
+              }}
+            >
+              <StyledText color="#fff" fontWeight={700} textAlign="center">
+                Phase 2
+              </StyledText>
+
+              <hr style={{ border: "1px solid #8C9296", marginTop: "17px" }} />
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                my={3}
+              >
+                <StyledText color="#fff" fontWeight={700}>
+                  Current Token Price
+                </StyledText>
+                <StyledText color="#fff" fontWeight={700}>
+                  0.00
+                </StyledText>
+              </Box>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+                mb={3}
+              >
+                <StyledText color="#fff" fontWeight={700}>
+                  Token Balance
+                </StyledText>
+                <StyledText color="#fff" fontWeight={700}>
+                  0.00
+                </StyledText>
+              </Box>
+              <Box mb={4}>
+                <BorderLinearProgress variant="determinate" value={20} />
               </Box>
             </Box>
           </Grid>
@@ -206,7 +262,7 @@ const TechnaSwap = () => {
           fontSize="16px"
           mt="2rem"
         >
-          Need help? Join our Discord
+          Need help? Join our
           <span style={{ margin: "0px 5px", color: "#BD69FF" }}>Discord</span>
           community!
         </StyledTextNormal>

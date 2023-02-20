@@ -56,15 +56,24 @@ const Footer = () => {
     <Box bgcolor="#000" py={4}>
       <Container maxWidth="lg">
         <Grid container spacing={4} my={5}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={3}
+            display="flex"
+            flexDirection="column"
+            alignItems={{ xs: "center", md: "flex-start" }}
+          >
             <img src={Logo} alt="" />
           </Grid>
           <Grid
             item
-            xs={6}
+            xs={12}
             md={3}
             display="flex"
             flexDirection="column"
+            alignItems={{ xs: "center", md: "flex-start" }}
             gap={2}
           >
             <StyledText color="#fff" fontWeight={700}>
@@ -88,9 +97,10 @@ const Footer = () => {
             xs={12}
             sm={6}
             md={3}
+            gap={2}
             display="flex"
             flexDirection="column"
-            gap={2}
+            alignItems={{ xs: "center", md: "flex-start" }}
           >
             <StyledText color="#fff" fontWeight={700}>
               CONTACT
@@ -112,12 +122,17 @@ const Footer = () => {
             md={3}
             display="flex"
             flexDirection="column"
+            alignItems={{ xs: "center", md: "flex-start" }}
             gap={2}
           >
             <StyledText color="#fff" fontWeight={700}>
               NEWSLETTER
             </StyledText>
-            <StyledText color="#8C9296" fontWeight={500}>
+            <StyledText
+              color="#8C9296"
+              fontWeight={500}
+              textAlign={{ xs: "center", md: "left" }}
+            >
               Subscribe our newsletter to get more information about
               cryptocurrency
             </StyledText>
@@ -151,7 +166,7 @@ const Footer = () => {
           justifyContent="space-between"
           flexDirection={{ xs: "column", md: "row" }}
         >
-          <StyledTextNav fontWeight={400} my={3}>
+          <StyledTextNav fontWeight={400} my={3} textAlign="center">
             Copyright © 2021 UI8 LLC. All rights reserved
           </StyledTextNav>
 
