@@ -16,9 +16,8 @@ import {
   StyledTextNormal,
   StyledButton,
   SelectTextField,
-  CustomButton,
 } from "../SmallComponents/AppComponents";
-import { KeyboardArrowDown, Close } from "@mui/icons-material";
+import { KeyboardArrowDown, Close, ContentCopy } from "@mui/icons-material";
 import { Tch, swapBg, eth } from "../Images";
 import { tokenArray } from "./List";
 import { useState } from "react";
@@ -357,7 +356,7 @@ const TechnaSwap = () => {
                 </Box>
                 <TextField
                   placeholder="0.00"
-                  type="t"
+                  type="number"
                   inputMode="numeric"
                   onChange={(e) => {
                     setAmountstate(e.target.value);
@@ -459,6 +458,14 @@ const TechnaSwap = () => {
                     fontSize: { xs: "20px", md: "24px" },
                     fontWeight: 700,
                     color: "#FFF",
+                    "&::-webkit-outer-spin-button": {
+                      WebkitAppearance: "none",
+                      margin: 0,
+                    },
+                    "&::-webkit-inner-spin-button": {
+                      WebkitAppearance: "none",
+                      margin: 0,
+                    },
                   },
 
                   background: "transparent",
@@ -583,8 +590,9 @@ const TechnaSwap = () => {
                       : toast.error("please connect to your wallet!")
                   }
                 >
-                  <StyledButton mt={2} padding="9px 20px">
+                  <StyledButton mt={2} padding="7px 17px">
                     Copy
+                    <ContentCopy sx={{ ml: "7px" }} />
                   </StyledButton>
                 </CopyToClipboard>
               </Box>
