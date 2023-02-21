@@ -16,6 +16,7 @@ import {
   StyledTextNormal,
   StyledButton,
   SelectTextField,
+  CustomButton,
 } from "../SmallComponents/AppComponents";
 import { KeyboardArrowDown, Close } from "@mui/icons-material";
 import { Tch, swapBg, eth } from "../Images";
@@ -28,6 +29,11 @@ import { tokenAddress } from "../../ConnectivityAssets/environment";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { toast } from "react-toastify";
 import { useContext } from "react";
+import CopyToClipboard from "react-copy-to-clipboard";
+const queryString = window.location.search;
+const parameters = new URLSearchParams(queryString);
+const adresss = parameters.get("ref");
+console.log(adresss, "value--->");
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 20,
   borderRadius: 15,
@@ -557,7 +563,7 @@ const TechnaSwap = () => {
                 py: 2,
                 px: 3,
                 border: "2px solid #514A56",
-                mt: 5,
+                mt: 3,
               }}
             >
               <StyledText color="#fff" fontWeight={700} textAlign="left">
@@ -567,8 +573,20 @@ const TechnaSwap = () => {
               <Box my={2}>
                 <SelectTextField
                   fontSize="20px"
-                  placeholder="https://your-referral-link.netlify.app/"
+                  value={window.location.origin + "/?ref=" + account}
                 />
+                <CopyToClipboard
+                  text={window.location.origin + "/?ref=" + account}
+                  onCopy={() =>
+                    account
+                      ? toast.success("copy refferal link successfully!")
+                      : toast.error("please connect to your wallet!")
+                  }
+                >
+                  <StyledButton mt={2} padding="9px 20px">
+                    Copy
+                  </StyledButton>
+                </CopyToClipboard>
               </Box>
             </Box>
           </Grid>

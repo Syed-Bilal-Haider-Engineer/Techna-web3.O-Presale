@@ -53,6 +53,7 @@ export function StyledButton({ children, ...props }) {
           borderRadius: "15px",
           padding: props.padding,
           boxShadow: props.boxShadow,
+          mt: props.mt,
           width: props.width,
           "&.Mui-disabled": {
             color: "#979EA7",
@@ -402,7 +403,6 @@ export function SelectTextField({ selects, setselect, ...props }) {
     <>
       <TextField
         {...props}
-        placeholder={props.placeholder}
         // type="number"
         inputMode="numeric"
         autoComplete="off"
