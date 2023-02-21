@@ -11,23 +11,23 @@ import {
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
-
 import {
   StyledText,
   StyledTextNormal,
   StyledButton,
-} from "./SmallComponents/AppComponents";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import CloseIcon from "@mui/icons-material/Close";
-
-import { Tch, swapBg, eth, UsdT2, Busd, Udsc, bnb, matic } from "./Images";
+} from "../SmallComponents/AppComponents";
+import { KeyboardArrowDown, Close } from "@mui/icons-material";
+// import CloseIcon from "@mui/icons-material/Close";
+import { Tch, swapBg, eth } from "../Images";
+import { tokenArray } from "./List";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
-import { AppContext } from "../utils";
-import { usePresaleContract } from "../ConnectivityAssets/hooks";
-import { tokenAddress } from "../ConnectivityAssets/environment";
+import { AppContext } from "../../utils";
+import { usePresaleContract } from "../../ConnectivityAssets/hooks";
+import { tokenAddress } from "../../ConnectivityAssets/environment";
+import { formatUnits, parseUnits } from "@ethersproject/units";
+import { toast } from "react-toastify";
 import { useContext } from "react";
-
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 20,
   borderRadius: 15,
@@ -37,79 +37,129 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
   [`& .${linearProgressClasses.bar}`]: {
     borderRadius: 10,
-    // backgroundColor: theme.palette.mode === "light" ? "red" : "#308fe8",
     backgroundImage:
       "linear-gradient(to right, #0ac7bf, #00a0b2, #00799c, #00537c, #163055, #163055, #163055, #163055, #00537c, #00799c, #00a0b2, #0ac7bf)",
   },
 }));
 const TechnaSwap = () => {
-  const [selects, setselect] = useState(0);
-  const { account, signer, connect, disconnect } = useContext(AppContext);
+  const { account, signer, connect } = useContext(AppContext);
+  const [selectToken, setSelectToken] = useState(1);
   const presaleContract = usePresaleContract(signer);
+  const [amount, setAmountstate] = useState("");
+  const [result, setResultstate] = useState(0);
+  const matches = useMediaQuery("(min-width:1050px)");
+  const [openDialog, setOpenDialog] = useState(false);
   const [selecter, setSelecter] = useState({
     img: eth,
     tokens: "ETH",
   });
+  let decimal = "18";
+  const BUSDToTokenMethod = async () => {
+    try {
+      const data = await presaleContract.BUSDToTokens(
+        1,
+        parseUnits(amount.toString(), +decimal)
+      );
 
-  const [selectToken, setSelectToken] = useState();
+      setResultstate(formatUnits(data.toString(), +decimal));
+    } catch (error) {
+      console.log("Busd to error", error);
+    }
+  };
+  const USDCToTokensMethod = async () => {
+    try {
+      const data = await presaleContract.USDCToTokens(
+        1,
+        parseUnits(amount.toString(), +decimal)
+      );
+      setResultstate(formatUnits(data));
+    } catch (error) {
+      console.log("Busd to error", error);
+    }
+  };
+  const bnbToTokensMethods = async () => {
+    try {
+      const data = await presaleContract.bnbToTokens(
+        1,
+        parseUnits(amount.toString(), +decimal)
+      );
+      setResultstate(formatUnits(data));
+    } catch (error) {
+      console.log("BNB token", error);
+    }
+  };
+  const ethToTokensMethods = async () => {
+    try {
+      const data = await presaleContract.ethToTokens(
+        1,
+        parseUnits(amount.toString(), +decimal)
+      );
+      setResultstate(formatUnits(data));
+    } catch (error) {
+      console.log("ethToTokensMethods token", error);
+    }
+  };
+  const usdtToTokensMethods = async () => {
+    try {
+      let decimal = "6";
+      const data = await presaleContract.usdtToTokens(
+        1,
+        parseUnits(amount.toString(), +decimal)
+      );
+      setResultstate(formatUnits(data));
+    } catch (error) {
+      console.log("usdtToTokensMethods token", error);
+    }
+  };
+  const maticToTokensMethods = async () => {
+    try {
+      const data = await presaleContract.maticToTokens(
+        1,
+        parseUnits(amount.toString(), +decimal)
+      );
+      setResultstate(formatUnits(data));
+    } catch (error) {
+      console.log("maticToTokensMethods token", error);
+    }
+  };
 
-  const init = async (selectToken) => {
-    // switch (selectToken) {
-    //   case 1:
-    //     alert("case 1 executed");
-    //     console.log("case 1 ============>>>>>");
-    //     break;
-    //   case 2:
-    //     alert("case 2 executed");
-    //     break;
-    //   default:
-    //     alert("default case executed");
-    // }
+  const init = async (selectToken = 1) => {
+    switch (selectToken) {
+      case 1:
+        ethToTokensMethods();
+        break;
+      case 2:
+        usdtToTokensMethods();
+        break;
+      case 3:
+        USDCToTokensMethod();
+        break;
+      case 4:
+        BUSDToTokenMethod();
+        break;
+      case 5:
+        maticToTokensMethods();
+        break;
+      case 6:
+        bnbToTokensMethods();
+        break;
+      default:
+        toast("default case executed");
+    }
   };
 
   React.useEffect(() => {
-    if (account && presaleContract) {
-      init();
+    if (amount && presaleContract) {
+      if (!account) {
+        toast("Please connect with wallet !");
+      } else {
+        init(selectToken);
+      }
+    } else {
+      setResultstate(0);
     }
-  }, [selectToken]);
-
-  //
-  const matches = useMediaQuery("(min-width:1050px)");
-
-  const [openDialog, setOpenDialog] = useState(false);
-
-  const tokenArray = [
-    {
-      img: eth,
-      tokens: "ETH",
-      id: 1,
-    },
-    {
-      img: UsdT2,
-      tokens: "USDT",
-      id: 2,
-    },
-    {
-      img: Udsc,
-      tokens: "UDSC",
-      id: 3,
-    },
-    {
-      img: Busd,
-      tokens: "BUSD",
-      id: 4,
-    },
-    {
-      img: matic,
-      tokens: "Matic",
-      id: 5,
-    },
-    {
-      img: bnb,
-      tokens: "BNB",
-      id: 6,
-    },
-  ];
+  }, [amount, selectToken, account]);
+  console.log("result......>", result);
   return (
     <Box
       sx={{
@@ -204,7 +254,7 @@ const TechnaSwap = () => {
                       >
                         Select Token
                       </Typography>
-                      <CloseIcon
+                      <Close
                         style={{
                           cursor: "pointer",
                           color: "#66656E ",
@@ -297,12 +347,15 @@ const TechnaSwap = () => {
                   >
                     {selecter.tokens}
                   </Typography>
-                  <KeyboardArrowDownIcon color="#fff" />
+                  <KeyboardArrowDown color="#fff" />
                 </Box>
                 <TextField
                   placeholder="0.00"
                   type="number"
                   inputMode="numeric"
+                  onChange={(e) => {
+                    setAmountstate(e.target.value);
+                  }}
                   autoComplete="off"
                   id="standard-name"
                   sx={{
@@ -397,10 +450,12 @@ const TechnaSwap = () => {
                   color: "#fff",
                 }}
                 name="name"
-                type="phone"
+                type="number"
+                inputMode="numeric"
                 placeholder={"0.00"}
-                InputProps={{}}
+                value={result}
                 required={true}
+                readOnly
               />
               <Box
                 my="45px"

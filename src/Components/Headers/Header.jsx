@@ -13,10 +13,10 @@ import {
 import { makeStyles } from "@mui/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import clsx from "clsx";
-import { Logo } from "./Images";
+import { Logo } from "../Images";
 
-import { AppContext } from "../utils";
-import { StyledButton, StyledText } from "./SmallComponents/AppComponents";
+import { AppContext } from "../../utils";
+import { StyledButton, StyledText } from "../SmallComponents/AppComponents";
 
 const useStyles = makeStyles({
   list: {

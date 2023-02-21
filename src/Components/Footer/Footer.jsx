@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Box, Container, Grid, InputAdornment, TextField } from "@mui/material";
-import { Logo } from "./Images";
-import { StyledText, StyledTextNav } from "./SmallComponents/AppComponents";
+import { Logo } from "../Images";
+import { StyledText, StyledTextNav } from "../SmallComponents/AppComponents";
 import { styled } from "@mui/system";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
@@ -20,7 +20,6 @@ const IconStyle = styled(Box)({
 });
 
 const CustomTextField = styled(TextField)({
-  //   maxWidth: check ? "100%" : "400px",
   fontFamily: "Montserrat",
   fontWeight: "500",
 
