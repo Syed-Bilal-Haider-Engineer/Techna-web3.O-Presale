@@ -137,8 +137,8 @@ export default function Header() {
             </Box>
             <Box>
               <Hidden mdUp>
-                {["left"].map((anchor) => (
-                  <React.Fragment key={anchor}>
+                {["left"].map((anchor, i) => (
+                  <React.Fragment key={i}>
                     <Button
                       onClick={toggleDrawer(anchor, true)}
                       style={{ zIndex: 1 }}

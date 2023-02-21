@@ -5,7 +5,7 @@ import { presaleAddress } from "./environment";
 import { ethers } from "ethers";
 let walletAddress = "0xcC5c436Fb9fa7c6fc42102Df00A5b976Cd4edb70";
 const provider = new ethers.providers.JsonRpcProvider(
-  "https://data-seed-prebsc-1-s1.binance.org:8545/"
+  "https://matic-mumbai.chainstacklabs.com"
 );
 export const voidAccount = new ethers.VoidSigner(walletAddress, provider);
 function useContract(address, ABI, signer) {
