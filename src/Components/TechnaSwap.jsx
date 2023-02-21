@@ -301,10 +301,15 @@ const TechnaSwap = () => {
                 </Box>
                 <TextField
                   placeholder="0.00"
-                  type="number"
+                  type="t"
                   inputMode="numeric"
                   autoComplete="off"
                   id="standard-name"
+                  onChange={(event) =>
+                    event.target.value < 0
+                      ? (event.target.value = 0)
+                      : event.target.value
+                  }
                   sx={{
                     fontFamily: "Montserrat",
                     "& label.Mui-focused": {
@@ -361,6 +366,11 @@ const TechnaSwap = () => {
               <TextField
                 autoComplete="off"
                 id="standard-name"
+                onChange={(event) =>
+                  event.target.value < 0
+                    ? (event.target.value = 0)
+                    : event.target.value
+                }
                 sx={{
                   fontFamily: "Montserrat",
                   "& label.Mui-focused": {
