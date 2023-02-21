@@ -15,9 +15,9 @@ import {
   StyledText,
   StyledTextNormal,
   StyledButton,
+  SelectTextField,
 } from "../SmallComponents/AppComponents";
 import { KeyboardArrowDown, Close } from "@mui/icons-material";
-// import CloseIcon from "@mui/icons-material/Close";
 import { Tch, swapBg, eth } from "../Images";
 import { tokenArray } from "./List";
 import { useState } from "react";
@@ -358,11 +358,11 @@ const TechnaSwap = () => {
                   }}
                   autoComplete="off"
                   id="standard-name"
-                  onChange={(event) =>
-                    event.target.value < 0
-                      ? (event.target.value = 0)
-                      : event.target.value
-                  }
+                  // onChange={(event) =>
+                  //   event.target.value < 0
+                  //     ? (event.target.value = 0)
+                  //     : event.target.value
+                  // }
                   sx={{
                     fontFamily: "Montserrat",
                     "& label.Mui-focused": {
@@ -548,54 +548,29 @@ const TechnaSwap = () => {
                 <BorderLinearProgress variant="determinate" value={50} />
               </Box>
             </Box>
-
-            {/* phase 2 */}
-
-            {/* <Box
+            {/*  */}
+            <Box
               sx={{
                 background: "rgba(24, 24, 24, 0.5)",
                 backdropFilter: "blur(62.5px)",
                 borderRadius: "15px",
                 py: 2,
                 px: 3,
-                mt: 3,
+                border: "2px solid #514A56",
+                mt: 5,
               }}
             >
-              <StyledText color="#fff" fontWeight={700} textAlign="center">
-                Phase 2
+              <StyledText color="#fff" fontWeight={700} textAlign="left">
+                Your Referral Link
               </StyledText>
-
               <hr style={{ border: "1px solid #8C9296", marginTop: "17px" }} />
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                my={3}
-              >
-                <StyledText color="#fff" fontWeight={700}>
-                  Current Token Price
-                </StyledText>
-                <StyledText color="#fff" fontWeight={700}>
-                  0.00
-                </StyledText>
+              <Box my={2}>
+                <SelectTextField
+                  fontSize="20px"
+                  placeholder="https://your-referral-link.netlify.app/"
+                />
               </Box>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                mb={3}
-              >
-                <StyledText color="#fff" fontWeight={700}>
-                  Token Balance
-                </StyledText>
-                <StyledText color="#fff" fontWeight={700}>
-                  0.00
-                </StyledText>
-              </Box>
-              <Box mb={4}>
-                <BorderLinearProgress variant="determinate" value={20} />
-              </Box>
-            </Box> */}
+            </Box>
           </Grid>
         </Grid>
         <StyledTextNormal
