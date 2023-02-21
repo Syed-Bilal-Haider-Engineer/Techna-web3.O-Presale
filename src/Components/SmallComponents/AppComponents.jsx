@@ -52,7 +52,7 @@ export function StyledButton({ children, ...props }) {
           fontFamily: "Montserrat",
           borderRadius: "15px",
           padding: props.padding,
-          boxShadow: props.boxShadow,
+
           width: props.width,
           "&.Mui-disabled": {
             color: "#979EA7",

@@ -47,54 +47,82 @@ const TechnaSwap = () => {
   const presaleContract = usePresaleContract(signer);
   const [amount, setAmountstate] = useState("");
   const [result, setResultstate] = useState(0);
+  const [writeAmount, setWriteAmount] = useState(0);
   const matches = useMediaQuery("(min-width:1050px)");
   const [openDialog, setOpenDialog] = useState(false);
+  const [allCurrencyAddress, setCurrencyaddress] = useState("");
+  const [ownerAddress, setOwneraddress] = useState(0);
   const [selecter, setSelecter] = useState({
     img: eth,
     tokens: "ETH",
   });
   let decimal = "18";
+
+  const getOwnerAddress = async () => {
+    try {
+      console.log("presaleContract:", presaleContract);
+      const owneraddress = await presaleContract.owner();
+      console.log("ownerAddress:", ownerAddress);
+      setOwneraddress(owneraddress);
+    } catch (error) {
+      console.log("get owner address", error);
+    }
+  };
+
   const BUSDToTokenMethod = async () => {
     try {
+      const busdAddress = await presaleContract.BUSD();
       const data = await presaleContract.BUSDToTokens(
         1,
         parseUnits(amount.toString(), +decimal)
       );
-
-      setResultstate(formatUnits(data.toString(), +decimal));
+      setWriteAmount(data);
+      setResultstate(formatUnits(data));
+      setCurrencyaddress(busdAddress);
     } catch (error) {
       console.log("Busd to error", error);
     }
   };
   const USDCToTokensMethod = async () => {
     try {
+      const usdcAddress = await presaleContract.USDC();
       const data = await presaleContract.USDCToTokens(
         1,
         parseUnits(amount.toString(), +decimal)
       );
+      setWriteAmount(data);
       setResultstate(formatUnits(data));
+      setCurrencyaddress(usdcAddress);
     } catch (error) {
       console.log("Busd to error", error);
     }
   };
   const bnbToTokensMethods = async () => {
     try {
+      const bndAddress = await presaleContract.BNB();
       const data = await presaleContract.bnbToTokens(
         1,
         parseUnits(amount.toString(), +decimal)
       );
+      setWriteAmount(data);
       setResultstate(formatUnits(data));
+      setCurrencyaddress(bndAddress);
     } catch (error) {
       console.log("BNB token", error);
     }
   };
   const ethToTokensMethods = async () => {
     try {
+      const etherAddress = await presaleContract.Ether();
+      console.log("etherAddress:", etherAddress);
       const data = await presaleContract.ethToTokens(
         1,
         parseUnits(amount.toString(), +decimal)
       );
+      console.log("data:........>", data);
+      setWriteAmount(data);
       setResultstate(formatUnits(data));
+      setCurrencyaddress(etherAddress);
     } catch (error) {
       console.log("ethToTokensMethods token", error);
     }
@@ -102,11 +130,14 @@ const TechnaSwap = () => {
   const usdtToTokensMethods = async () => {
     try {
       let decimal = "6";
+      const usdtAddress = await presaleContract.USDT();
       const data = await presaleContract.usdtToTokens(
         1,
         parseUnits(amount.toString(), +decimal)
       );
+      setWriteAmount(data);
       setResultstate(formatUnits(data));
+      setCurrencyaddress(usdtAddress);
     } catch (error) {
       console.log("usdtToTokensMethods token", error);
     }
@@ -117,7 +148,9 @@ const TechnaSwap = () => {
         1,
         parseUnits(amount.toString(), +decimal)
       );
+      setWriteAmount(data);
       setResultstate(formatUnits(data));
+      setCurrencyaddress("");
     } catch (error) {
       console.log("maticToTokensMethods token", error);
     }
@@ -151,15 +184,39 @@ const TechnaSwap = () => {
   React.useEffect(() => {
     if (amount && presaleContract) {
       if (!account) {
-        toast("Please connect with wallet !");
+        toast.error("Please connect with wallet !");
       } else {
         init(selectToken);
       }
     } else {
       setResultstate(0);
     }
+    if (account && !ownerAddress) getOwnerAddress();
   }, [amount, selectToken, account]);
-  console.log("result......>", result);
+
+  console.log("ownerAddress:", ownerAddress);
+
+  const buyMethods = async (writeAmount, allCurrencyAddress) => {
+    try {
+      console.log(allCurrencyAddress, ":", ownerAddress, ":", writeAmount);
+      if (allCurrencyAddress && ownerAddress && writeAmount) {
+        const data = await presaleContract.buyToken(
+          allCurrencyAddress,
+          writeAmount,
+          ownerAddress
+        );
+        console.log("buy token:", data);
+      }
+      if (!allCurrencyAddress) {
+        // const data = await presaleContract.buyWithMatic(
+        //   parseUnits(amount.toString(), +decimal)
+        // );
+        console.log("buy with matric", allCurrencyAddress);
+      }
+    } catch (error) {
+      return toast.error(error?.message);
+    }
+  };
   return (
     <Box
       sx={{
@@ -401,7 +458,6 @@ const TechnaSwap = () => {
                     color: "#fff",
                   }}
                   name="name"
-                  // InputProps={{}}
                   required={true}
                 />
               </Box>
@@ -464,15 +520,20 @@ const TechnaSwap = () => {
                 justifyContent="center"
               >
                 {account ? (
-                  <StyledButton width="90%">Buy</StyledButton>
+                  <StyledButton
+                    width="90%"
+                    onClick={() => {
+                      buyMethods(writeAmount, allCurrencyAddress);
+                    }}
+                  >
+                    Buy
+                  </StyledButton>
                 ) : (
                   <StyledButton
                     onClick={() => connect()}
                     width="100%"
                     padding="11px"
                     boxShadow="1px 39px 45px -1px rgba(0,85,55,0.7)"
-                    WebkitBoxShadow="1px 39px 45px -1px rgba(0,85,55,0.7)"
-                    MozBoxShadow="1px 39px 45px -1px rgba(0,85,55,0.7)"
                   >
                     Connect Wallet
                   </StyledButton>
