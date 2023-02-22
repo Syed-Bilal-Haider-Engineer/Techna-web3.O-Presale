@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -56,19 +56,34 @@ const TechnaSwap = () => {
   const presaleContract = usePresaleContract(signer);
   const [amount, setAmountstate] = useState("");
   const [result, setResultstate] = useState(0);
-
   const matches = useMediaQuery("(min-width:1050px)");
   const [openDialog, setOpenDialog] = useState(false);
   const [allCurrencyAddress, setCurrencyaddress] = useState("");
   const [ownerAddress, setOwneraddress] = useState(0);
   const [loading, setLoading] = useState(false);
   const [tokenContract, setTokencontractstate] = useState("");
+  const [saleProgress, setSaleProgressState] = useState(0);
   const ref_Address = refAddress ? refAddress : ownerAddress;
   const [selecter, setSelecter] = useState({
     img: eth,
     tokens: "ETH",
   });
   let decimal = "18";
+  const readsMethods = async () => {
+    setLoading(true);
+    try {
+      let saleProgrss = await presaleContract.saleProgress();
+      saleProgrss = saleProgrss / 1000;
+      setSaleProgressState(saleProgrss);
+      setLoading(false);
+    } catch (error) {
+      console.log("reads methods error", error);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    readsMethods();
+  }, []);
   const getOwnerAddress = async () => {
     try {
       const owneraddress = await presaleContract.owner();
@@ -218,6 +233,9 @@ const TechnaSwap = () => {
   const buyMethods = async (writeAmount, allCurrencyAddress) => {
     setLoading(true);
     try {
+      if (!writeAmount) {
+        return toast.error("Please enter amount !");
+      }
       let decimal = selectToken === 2 ? "6" : "18";
       let amount = parseUnits(writeAmount.toString(), decimal);
       if (tokenContract) {
@@ -469,11 +487,6 @@ const TechnaSwap = () => {
                     }}
                     autoComplete="off"
                     id="standard-name"
-                    // onChange={(event) =>
-                    //   event.target.value < 0
-                    //     ? (event.target.value = 0)
-                    //     : event.target.value
-                    // }
                     sx={{
                       fontFamily: "Montserrat",
                       "& label.Mui-focused": {
@@ -662,7 +675,10 @@ const TechnaSwap = () => {
                   </StyledText>
                 </Box>
                 <Box mb={4}>
-                  <BorderLinearProgress variant="determinate" value={50} />
+                  <BorderLinearProgress
+                    variant="determinate"
+                    value={saleProgress}
+                  />
                 </Box>
               </Box>
               {/*  */}

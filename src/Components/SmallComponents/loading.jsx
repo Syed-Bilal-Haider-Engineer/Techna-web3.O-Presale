@@ -14,7 +14,7 @@ export default function Loading({ loading }) {
   return (
     <div>
       <Backdrop className={classes.backdrop} open={loading}>
-        <RingLoader color="#be4bc8" size={150} />
+        <RingLoader color="#AB54F0" size={150} />
       </Backdrop>
     </div>
   );
