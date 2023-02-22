@@ -245,11 +245,11 @@ const TechnaSwap = () => {
 
   //......Buy token from all blockchains.........>
   const buyMethods = async (writeAmount, allCurrencyAddress) => {
-    setLoading(true);
     try {
       if (!writeAmount) {
         return toast.error("Please enter amount !");
       }
+      setLoading(true);
       let decimal = selectToken === 2 ? "6" : "18";
       let amount = parseUnits(writeAmount.toString(), decimal);
       if (tokenContract) {
@@ -268,6 +268,8 @@ const TechnaSwap = () => {
 
         await tx.wait();
         toast.success("Transaction Successfully");
+        setAmountstate("");
+        setResultstate("");
         await readsMethods();
         setLoading(false);
       }
@@ -278,13 +280,15 @@ const TechnaSwap = () => {
         });
         await tx.wait();
         toast.success("Transaction Successfully");
+        setAmountstate("");
+        setResultstate("");
         await readsMethods();
         setLoading(false);
       }
     } catch (error) {
       setLoading(false);
       console.log(error, "error-->");
-      return toast.error(error?.message || error.message);
+      return toast.error(error?.message?.slice(0, 30));
     }
   };
   React.useEffect(() => {
@@ -497,7 +501,7 @@ const TechnaSwap = () => {
                   <TextField
                     placeholder="0.00"
                     type="number"
-                    inputMode="numeric"
+                    value={amount}
                     onChange={(e) => {
                       setAmountstate(e.target.value);
                     }}
