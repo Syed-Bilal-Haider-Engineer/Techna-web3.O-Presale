@@ -56,7 +56,7 @@ const TechnaSwap = () => {
   const presaleContract = usePresaleContract(signer);
   const [amount, setAmountstate] = useState("");
   const [result, setResultstate] = useState(0);
-  const [writeAmount, setWriteAmount] = useState(0);
+
   const matches = useMediaQuery("(min-width:1050px)");
   const [openDialog, setOpenDialog] = useState(false);
   const [allCurrencyAddress, setCurrencyaddress] = useState("");
@@ -87,7 +87,7 @@ const TechnaSwap = () => {
           1,
           parseUnits(amount.toString(), +decimal)
         );
-        setWriteAmount(data);
+
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -103,7 +103,7 @@ const TechnaSwap = () => {
           1,
           parseUnits(amount.toString(), +decimal)
         );
-        setWriteAmount(data);
+
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -119,7 +119,7 @@ const TechnaSwap = () => {
           1,
           parseUnits(amount.toString(), +decimal)
         );
-        setWriteAmount(data);
+
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -137,7 +137,7 @@ const TechnaSwap = () => {
           parseUnits(amount.toString(), "18")
         );
         console.log(+data, "data");
-        setWriteAmount(data);
+
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -153,7 +153,7 @@ const TechnaSwap = () => {
           1,
           parseUnits(amount.toString(), "6")
         );
-        setWriteAmount(data);
+
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -168,7 +168,7 @@ const TechnaSwap = () => {
           1,
           parseUnits(amount.toString(), +decimal)
         );
-        setWriteAmount(data);
+
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -219,16 +219,25 @@ const TechnaSwap = () => {
   const buyMethods = async (writeAmount, allCurrencyAddress) => {
     setLoading(true);
     try {
+      let decimal = selectToken === 2 ? "6" : "18";
+      let amount = parseUnits(writeAmount.toString(), decimal);
+      console.log(
+        "amount..................>Buy:",
+        +amount,
+        "decimal:",
+        decimal,
+        "allCurrencyAddress:",
+        allCurrencyAddress
+      );
       if (tokenContract) {
-        let tx = await tokenContract.approve(presaleAddress, writeAmount);
+        let tx = await tokenContract.approve(presaleAddress, amount);
         await tx.wait();
         console.log("tx.......", tx);
       }
       if (allCurrencyAddress && ownerAddress && writeAmount) {
-        console.log(+writeAmount, "writeAmount=====>");
         const tx = await presaleContract.buyToken(
           allCurrencyAddress,
-          writeAmount,
+          amount,
           ref_Address,
           {
             gasLimit: 2100000,
@@ -241,7 +250,7 @@ const TechnaSwap = () => {
       }
       if (!allCurrencyAddress) {
         const tx = await presaleContract.buyWithMatic(ref_Address, {
-          value: writeAmount,
+          value: amount,
           gasLimit: 210000,
         });
         await tx.wait();
@@ -589,7 +598,7 @@ const TechnaSwap = () => {
                     <StyledButton
                       width="90%"
                       onClick={() => {
-                        buyMethods(writeAmount, allCurrencyAddress);
+                        buyMethods(amount, allCurrencyAddress);
                       }}
                     >
                       Buy

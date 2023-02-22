@@ -608,6 +608,11 @@
       { "internalType": "uint256", "name": "price", "type": "uint256" },
       { "internalType": "uint256", "name": "tokensToSell", "type": "uint256" },
       { "internalType": "uint256", "name": "saleProgress", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "thisPhaseToken",
+        "type": "uint256"
+      },
       { "internalType": "uint256", "name": "sold", "type": "uint256" },
       { "internalType": "bool", "name": "Active", "type": "bool" }
     ],
