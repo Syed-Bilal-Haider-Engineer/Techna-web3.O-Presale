@@ -17,17 +17,14 @@ import {
   StyledButton,
   SelectTextField,
 } from "../SmallComponents/AppComponents";
-import { KeyboardArrowDown, Close, ContentCopy } from "@mui/icons-material";
+import { KeyboardArrowDown, Close } from "@mui/icons-material";
 import { Tch, swapBg, eth } from "../Images";
 import { tokenArray } from "./List";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import { AppContext } from "../../utils";
 import { usePresaleContract } from "../../ConnectivityAssets/hooks";
-import {
-  presaleAddress,
-  tokenAddress,
-} from "../../ConnectivityAssets/environment";
+import { presaleAddress } from "../../ConnectivityAssets/environment";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { toast } from "react-toastify";
 import { useContext } from "react";
@@ -76,6 +73,7 @@ const TechnaSwap = () => {
     try {
       const owneraddress = await presaleContract.owner();
       setOwneraddress(owneraddress);
+      console.log("owneraddress:", owneraddress);
     } catch (error) {
       console.log("get owner address", error);
     }
@@ -84,12 +82,14 @@ const TechnaSwap = () => {
     try {
       const busdAddress = await presaleContract.BUSD();
       setCurrencyaddress(busdAddress);
-      const data = await presaleContract.BUSDToTokens(
-        1,
-        parseUnits(amount.toString(), +decimal)
-      );
-      setWriteAmount(data);
-      setResultstate(formatUnits(data));
+      if (amount) {
+        const data = await presaleContract.BUSDToTokens(
+          1,
+          parseUnits(amount.toString(), +decimal)
+        );
+        setWriteAmount(data);
+        setResultstate(formatUnits(data));
+      }
     } catch (error) {
       console.log("Busd to error", error);
     }
@@ -98,12 +98,14 @@ const TechnaSwap = () => {
     try {
       const usdcAddress = await presaleContract.USDC();
       setCurrencyaddress(usdcAddress);
-      const data = await presaleContract.USDCToTokens(
-        1,
-        parseUnits(amount.toString(), +decimal)
-      );
-      setWriteAmount(data);
-      setResultstate(formatUnits(data));
+      if (amount) {
+        const data = await presaleContract.USDCToTokens(
+          1,
+          parseUnits(amount.toString(), +decimal)
+        );
+        setWriteAmount(data);
+        setResultstate(formatUnits(data));
+      }
     } catch (error) {
       console.log("Busd to error", error);
     }
@@ -112,12 +114,14 @@ const TechnaSwap = () => {
     try {
       const bndAddress = await presaleContract.BNB();
       setCurrencyaddress(bndAddress);
-      const data = await presaleContract.bnbToTokens(
-        1,
-        parseUnits(amount.toString(), +decimal)
-      );
-      setWriteAmount(data);
-      setResultstate(formatUnits(data));
+      if (amount) {
+        const data = await presaleContract.bnbToTokens(
+          1,
+          parseUnits(amount.toString(), +decimal)
+        );
+        setWriteAmount(data);
+        setResultstate(formatUnits(data));
+      }
     } catch (error) {
       console.log("BNB token", error);
     }
@@ -127,28 +131,31 @@ const TechnaSwap = () => {
       const etherAddress = await presaleContract.Ether();
       console.log("etherAddress:", etherAddress);
       setCurrencyaddress(etherAddress);
-      const data = await presaleContract.ethToTokens(
-        1,
-        parseUnits(amount.toString(), "18")
-      );
-      console.log(+data, "data");
-      setWriteAmount(data);
-      setResultstate(formatUnits(data));
+      if (amount) {
+        const data = await presaleContract.ethToTokens(
+          1,
+          parseUnits(amount.toString(), "18")
+        );
+        console.log(+data, "data");
+        setWriteAmount(data);
+        setResultstate(formatUnits(data));
+      }
     } catch (error) {
       console.log("ethToTokensMethods token", error);
     }
   };
   const usdtToTokensMethods = async () => {
     try {
-      let decimal = "6";
       const usdtAddress = await presaleContract.USDT();
       setCurrencyaddress(usdtAddress);
-      const data = await presaleContract.usdtToTokens(
-        1,
-        parseUnits(amount.toString(), +decimal)
-      );
-      setWriteAmount(data);
-      setResultstate(formatUnits(data));
+      if (amount) {
+        const data = await presaleContract.usdtToTokens(
+          1,
+          parseUnits(amount.toString(), "6")
+        );
+        setWriteAmount(data);
+        setResultstate(formatUnits(data));
+      }
     } catch (error) {
       console.log("usdtToTokensMethods token", error);
     }
@@ -156,12 +163,14 @@ const TechnaSwap = () => {
   const maticToTokensMethods = async () => {
     try {
       setCurrencyaddress("");
-      const data = await presaleContract.maticToTokens(
-        1,
-        parseUnits(amount.toString(), +decimal)
-      );
-      setWriteAmount(data);
-      setResultstate(formatUnits(data));
+      if (amount) {
+        const data = await presaleContract.maticToTokens(
+          1,
+          parseUnits(amount.toString(), +decimal)
+        );
+        setWriteAmount(data);
+        setResultstate(formatUnits(data));
+      }
     } catch (error) {
       console.log("maticToTokensMethods token", error);
     }
@@ -245,12 +254,10 @@ const TechnaSwap = () => {
       return toast.error(error?.message || error.message);
     }
   };
-
   React.useEffect(() => {
     async(() => {
       try {
         if (allCurrencyAddress) {
-          console.log(allCurrencyAddress, "al------------->");
           const contract = new ethers.Contract(allCurrencyAddress, abi, signer);
           setTokencontractstate(contract);
         }
