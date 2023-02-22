@@ -496,7 +496,7 @@ const TechnaSwap = () => {
                   </Box>
                   <TextField
                     placeholder="0.00"
-                    type="t"
+                    type="number"
                     inputMode="numeric"
                     onChange={(e) => {
                       setAmountstate(e.target.value);
@@ -599,8 +599,7 @@ const TechnaSwap = () => {
                     color: "#fff",
                   }}
                   name="name"
-                  type="number"
-                  inputMode="numeric"
+                  type="text"
                   placeholder={"0.00"}
                   value={result}
                   required={true}
