@@ -167,20 +167,10 @@ export default function Header() {
               </Hidden>
               <Hidden mdDown>
                 <Box display="flex" alignItems="center" gap={3}>
-                  <a
-                    href=""
-                    style={{
-                      textDecoration: "none",
-                    }}
-                  >
-                    <StyledText
-                      padding="9px 19px"
-                      color="#fff"
-                      fontWeight={700}
-                    >
-                      WhitePaper
-                    </StyledText>
-                  </a>
+                  <StyledText padding="9px 19px" color="#fff" fontWeight={700}>
+                    WhitePaper
+                  </StyledText>
+
                   {account ? (
                     <StyledButton onClick={() => disconnect()}>
                       {account.slice(0, 4) + "..." + account.slice(-4)}

@@ -63,6 +63,12 @@ const TechnaSwap = () => {
   const [loading, setLoading] = useState(false);
   const [tokenContract, setTokencontractstate] = useState("");
   const [saleProgress, setSaleProgressState] = useState(0);
+  const [tokendetails, setTokendetails] = useState({
+    price: 0.0,
+    tokenBalance: 0.0,
+    solid: 0.0,
+  });
+
   const ref_Address = refAddress ? refAddress : ownerAddress;
   const [selecter, setSelecter] = useState({
     img: eth,
@@ -74,7 +80,15 @@ const TechnaSwap = () => {
     try {
       let saleProgrss = await presaleContract.saleProgress();
       saleProgrss = saleProgrss / 1000;
+      let phaseId = await presaleContract.phaseId();
+      let presale = await presaleContract.presale(+phaseId);
       setSaleProgressState(saleProgrss);
+      setTokendetails({
+        ...tokendetails,
+        price: formatUnits(presale?.price, "18"),
+        tokenBalance: formatUnits(presale?.tokensToSell, "18"),
+        solid: formatUnits(presale?.sold, "18"),
+      });
       setLoading(false);
     } catch (error) {
       console.log("reads methods error", error);
@@ -254,6 +268,7 @@ const TechnaSwap = () => {
 
         await tx.wait();
         toast.success("Transaction Successfully");
+        await readsMethods();
         setLoading(false);
       }
       if (!allCurrencyAddress) {
@@ -263,6 +278,7 @@ const TechnaSwap = () => {
         });
         await tx.wait();
         toast.success("Transaction Successfully");
+        await readsMethods();
         setLoading(false);
       }
     } catch (error) {
@@ -645,7 +661,7 @@ const TechnaSwap = () => {
                     Current Token Price
                   </StyledText>
                   <StyledText color="#fff" fontWeight={700}>
-                    0.00
+                    {parseFloat(tokendetails?.price).toFixed(2)}
                   </StyledText>
                 </Box>
                 <Box
@@ -658,7 +674,7 @@ const TechnaSwap = () => {
                     Token Balance
                   </StyledText>
                   <StyledText color="#fff" fontWeight={700}>
-                    0.00
+                    {parseFloat(tokendetails?.tokenBalance).toFixed(2)}
                   </StyledText>
                 </Box>
                 <Box
@@ -671,7 +687,7 @@ const TechnaSwap = () => {
                     Sold Token
                   </StyledText>
                   <StyledText color="#fff" fontWeight={700}>
-                    0.00
+                    {parseFloat(tokendetails?.solid).toFixed(2)}
                   </StyledText>
                 </Box>
                 <Box mb={4}>
