@@ -73,7 +73,6 @@ const TechnaSwap = () => {
     try {
       const owneraddress = await presaleContract.owner();
       setOwneraddress(owneraddress);
-      console.log("owneraddress:", owneraddress);
     } catch (error) {
       console.log("get owner address", error);
     }
@@ -129,14 +128,13 @@ const TechnaSwap = () => {
   const ethToTokensMethods = async () => {
     try {
       const etherAddress = await presaleContract.Ether();
-      console.log("etherAddress:", etherAddress);
+
       setCurrencyaddress(etherAddress);
       if (amount) {
         const data = await presaleContract.ethToTokens(
           1,
           parseUnits(amount.toString(), "18")
         );
-        console.log(+data, "data");
 
         setResultstate(formatUnits(data));
       }
@@ -216,23 +214,15 @@ const TechnaSwap = () => {
     }
   }, [amount, selectToken, account, presaleContract]);
 
+  //......Buy token from all blockchains.........>
   const buyMethods = async (writeAmount, allCurrencyAddress) => {
     setLoading(true);
     try {
       let decimal = selectToken === 2 ? "6" : "18";
       let amount = parseUnits(writeAmount.toString(), decimal);
-      console.log(
-        "amount..................>Buy:",
-        +amount,
-        "decimal:",
-        decimal,
-        "allCurrencyAddress:",
-        allCurrencyAddress
-      );
       if (tokenContract) {
         let tx = await tokenContract.approve(presaleAddress, amount);
         await tx.wait();
-        console.log("tx.......", tx);
       }
       if (allCurrencyAddress && ownerAddress && writeAmount) {
         const tx = await presaleContract.buyToken(
@@ -245,7 +235,7 @@ const TechnaSwap = () => {
         );
 
         await tx.wait();
-        toast.success("transaction successfully");
+        toast.success("Transaction Successfully");
         setLoading(false);
       }
       if (!allCurrencyAddress) {
@@ -254,7 +244,7 @@ const TechnaSwap = () => {
           gasLimit: 210000,
         });
         await tx.wait();
-        toast.success("transaction successfully");
+        toast.success("Transaction Successfully");
         setLoading(false);
       }
     } catch (error) {
@@ -276,7 +266,6 @@ const TechnaSwap = () => {
     })();
   }, [allCurrencyAddress]);
 
-  console.log("tokenContract:", tokenContract);
   return (
     <>
       <Loading loading={loading} />
