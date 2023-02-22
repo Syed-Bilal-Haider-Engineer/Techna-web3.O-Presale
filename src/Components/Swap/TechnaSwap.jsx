@@ -718,20 +718,21 @@ const TechnaSwap = () => {
                 <Box my={2}>
                   <SelectTextField
                     fontSize="20px"
+                    mb={2}
                     value={window.location.origin + "/?ref=" + account}
                   />
-                  <CopyToClipboard
-                    text={window.location.origin + "/?ref=" + account}
-                    onCopy={() =>
-                      account
-                        ? toast.success("copy refferal link successfully!")
-                        : toast.error("please connect to your wallet!")
-                    }
-                  >
-                    <StyledButton sx={{ marginTop: "10px" }} padding="9px 20px">
-                      Copy
-                    </StyledButton>
-                  </CopyToClipboard>
+                  <Box mt={1}>
+                    <CopyToClipboard
+                      text={window.location.origin + "/?ref=" + account}
+                      onCopy={() =>
+                        account
+                          ? toast.success("copy refferal link successfully!")
+                          : toast.error("please connect to your wallet!")
+                      }
+                    >
+                      <StyledButton width="100%">Copy</StyledButton>
+                    </CopyToClipboard>
+                  </Box>
                 </Box>
               </Box>
             </Grid>

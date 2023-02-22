@@ -57,6 +57,7 @@ export function StyledButton({ children, ...props }) {
           },
           "&:hover": {
             background: "#00FF75",
+            opacity: 0.8,
           },
         }}
       >
