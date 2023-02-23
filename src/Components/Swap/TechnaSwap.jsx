@@ -71,7 +71,7 @@ const TechnaSwap = () => {
     phaseId: 0,
     divider: 0,
   });
-  console.log("presaleContract..........>", presaleContract);
+
   const ref_Address = refAddress ? refAddress : ownerAddress;
   const [selecter, setSelecter] = useState({
     img: eth,
