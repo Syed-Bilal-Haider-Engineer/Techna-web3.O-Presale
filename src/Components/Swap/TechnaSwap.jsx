@@ -67,6 +67,7 @@ const TechnaSwap = () => {
     price: 0.0,
     tokenBalance: 0.0,
     solid: 0.0,
+    phaseId: 0,
   });
 
   const ref_Address = refAddress ? refAddress : ownerAddress;
@@ -88,6 +89,7 @@ const TechnaSwap = () => {
         price: formatUnits(presale?.price, "18"),
         tokenBalance: formatUnits(presale?.tokensToSell, "18"),
         solid: formatUnits(presale?.sold, "18"),
+        phaseId: +phaseId,
       });
       setLoading(false);
     } catch (error) {
@@ -649,7 +651,7 @@ const TechnaSwap = () => {
                 }}
               >
                 <StyledText color="#fff" fontWeight={700} textAlign="center">
-                  Phase 1
+                  Phase {tokendetails?.phaseId}
                 </StyledText>
                 <hr
                   style={{ border: "1px solid #8C9296", marginTop: "17px" }}
