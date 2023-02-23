@@ -592,7 +592,9 @@ const TechnaSwap = () => {
                       }}
                     >
                       {oneCurrencyToUSDT
-                        ? (oneCurrencyToUSDT / tokendetails?.divider).toFixed(2)
+                        ? (oneCurrencyToUSDT / tokendetails?.divider).toFixed(
+                            2
+                          ) + "$"
                         : "0"}
                     </Typography>
                   </Box>
