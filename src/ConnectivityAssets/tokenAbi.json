@@ -257,6 +257,17 @@
     "type": "function"
   },
   {
+    "inputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "BUSDToUsdt",
+    "outputs": [
+      { "internalType": "uint256", "name": "usdtAmount", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "ETH_MULTIPLIER",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
@@ -295,6 +306,13 @@
   },
   {
     "inputs": [],
+    "name": "Owner",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "SaleToken",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
@@ -321,6 +339,17 @@
     "name": "USDCToTokens",
     "outputs": [
       { "internalType": "uint256", "name": "_tokens", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "USDCToUsdt",
+    "outputs": [
+      { "internalType": "uint256", "name": "usdtAmount", "type": "uint256" }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -372,6 +401,17 @@
     "name": "bnbToTokens",
     "outputs": [
       { "internalType": "uint256", "name": "_tokens", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "bnbToUsdt",
+    "outputs": [
+      { "internalType": "uint256", "name": "usdtAmount", "type": "uint256" }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -511,6 +551,17 @@
     "type": "function"
   },
   {
+    "inputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "ethToUsdt",
+    "outputs": [
+      { "internalType": "uint256", "name": "usdtAmount", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "fundReceiver",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
@@ -567,6 +618,17 @@
     "name": "maticToTokens",
     "outputs": [
       { "internalType": "uint256", "name": "_tokens", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "maticToUsdt",
+    "outputs": [
+      { "internalType": "uint256", "name": "usdtAmount", "type": "uint256" }
     ],
     "stateMutability": "view",
     "type": "function"

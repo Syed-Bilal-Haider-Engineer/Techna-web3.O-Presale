@@ -63,13 +63,15 @@ const TechnaSwap = () => {
   const [loading, setLoading] = useState(false);
   const [tokenContract, setTokencontractstate] = useState("");
   const [saleProgress, setSaleProgressState] = useState(0);
+  const [oneCurrencyToUSDT, setUSDTCurreny] = useState(0);
   const [tokendetails, setTokendetails] = useState({
     price: 0.0,
     tokenBalance: 0.0,
     solid: 0.0,
     phaseId: 0,
+    divider: 0,
   });
-
+  console.log("presaleContract..........>", presaleContract);
   const ref_Address = refAddress ? refAddress : ownerAddress;
   const [selecter, setSelecter] = useState({
     img: eth,
@@ -83,6 +85,8 @@ const TechnaSwap = () => {
       saleProgrss = saleProgrss / 1000;
       let phaseId = await presaleContract.phaseId();
       let presale = await presaleContract.presale(+phaseId);
+      let divider = await presaleContract.USDT_MULTIPLIER();
+
       setSaleProgressState(saleProgrss);
       setTokendetails({
         ...tokendetails,
@@ -90,6 +94,7 @@ const TechnaSwap = () => {
         tokenBalance: formatUnits(presale?.tokensToSell, "18"),
         solid: formatUnits(presale?.sold, "18"),
         phaseId: +phaseId,
+        divider: +divider,
       });
       setLoading(false);
     } catch (error) {
@@ -113,11 +118,15 @@ const TechnaSwap = () => {
       const busdAddress = await presaleContract.BUSD();
       setCurrencyaddress(busdAddress);
       if (amount) {
+        const usdtToken = await presaleContract.BUSDToUsdt(
+          parseUnits(amount.toString())
+        );
         const data = await presaleContract.BUSDToTokens(
           1,
           parseUnits(amount.toString(), +decimal)
         );
 
+        setUSDTCurreny(+usdtToken);
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -129,11 +138,14 @@ const TechnaSwap = () => {
       const usdcAddress = await presaleContract.USDC();
       setCurrencyaddress(usdcAddress);
       if (amount) {
+        const usdtToken = await presaleContract.USDCToUsdt(
+          parseUnits(amount.toString())
+        );
         const data = await presaleContract.USDCToTokens(
           1,
           parseUnits(amount.toString(), +decimal)
         );
-
+        setUSDTCurreny(+usdtToken);
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -145,11 +157,14 @@ const TechnaSwap = () => {
       const bndAddress = await presaleContract.BNB();
       setCurrencyaddress(bndAddress);
       if (amount) {
+        const usdtToken = await presaleContract.bnbToUsdt(
+          parseUnits(amount.toString())
+        );
         const data = await presaleContract.bnbToTokens(
           1,
           parseUnits(amount.toString(), +decimal)
         );
-
+        setUSDTCurreny(+usdtToken);
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -159,14 +174,17 @@ const TechnaSwap = () => {
   const ethToTokensMethods = async () => {
     try {
       const etherAddress = await presaleContract.Ether();
-
       setCurrencyaddress(etherAddress);
       if (amount) {
+        const usdtToken = await presaleContract.ethToUsdt(
+          parseUnits(amount.toString())
+        );
+
         const data = await presaleContract.ethToTokens(
           1,
           parseUnits(amount.toString(), "18")
         );
-
+        setUSDTCurreny(+usdtToken);
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -182,7 +200,7 @@ const TechnaSwap = () => {
           1,
           parseUnits(amount.toString(), "6")
         );
-
+        setUSDTCurreny("");
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -193,11 +211,14 @@ const TechnaSwap = () => {
     try {
       setCurrencyaddress("");
       if (amount) {
+        const usdtToken = await presaleContract.maticToUsdt(
+          parseUnits(amount.toString())
+        );
         const data = await presaleContract.maticToTokens(
           1,
           parseUnits(amount.toString(), +decimal)
         );
-
+        setUSDTCurreny(+usdtToken);
         setResultstate(formatUnits(data));
       }
     } catch (error) {
@@ -500,60 +521,81 @@ const TechnaSwap = () => {
                     </Typography>
                     <KeyboardArrowDown color="#fff" />
                   </Box>
-                  <TextField
-                    placeholder="0.00"
-                    type="number"
-                    value={amount}
-                    onChange={(e) => {
-                      setAmountstate(e.target.value);
-                    }}
-                    autoComplete="off"
-                    id="standard-name"
+                  <Box
                     sx={{
-                      fontFamily: "Montserrat",
-                      "& label.Mui-focused": {
-                        color: "#fff",
-                      },
-                      "& .MuiInput-underline:after": {
-                        borderBottomColor: "transparent",
-                      },
-                      "& .MuiOutlinedInput-root": {
-                        "& fieldset": {
-                          borderColor: "#3F3B42",
-                          border: "2px solid #3F3B42",
-                          borderRadius: "15px",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "#3F3B42",
-                        },
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#3F3B42",
-                        },
-                      },
-                      input: {
-                        "&::placeholder": {
-                          textOverflow: "ellipsis !important",
-                          color: "#fff !important",
-                        },
-                        fontSize: { xs: "20px", md: "24px" },
-                        fontWeight: 700,
-                        color: "#fff",
-                        "&::-webkit-outer-spin-button": {
-                          WebkitAppearance: "none",
-                          margin: 0,
-                        },
-                        "&::-webkit-inner-spin-button": {
-                          WebkitAppearance: "none",
-                          margin: 0,
-                        },
-                      },
-                      background: "transparent",
-                      width: "100%",
-                      color: "#fff",
+                      borderColor: "#3F3B42",
+                      border: "2px solid #3F3B42",
+                      borderRadius: "15px",
+                      display: "flex",
+                      alignItems: "center",
                     }}
-                    name="name"
-                    required={true}
-                  />
+                  >
+                    <TextField
+                      placeholder="0.00"
+                      type="number"
+                      value={amount}
+                      onChange={(e) => {
+                        setAmountstate(e.target.value);
+                      }}
+                      autoComplete="off"
+                      id="standard-name"
+                      sx={{
+                        fontFamily: "Montserrat",
+                        "& label.Mui-focused": {
+                          color: "#fff",
+                        },
+                        "& .MuiInput-underline:after": {
+                          borderBottomColor: "transparent",
+                        },
+                        "& .MuiOutlinedInput-root": {
+                          "& fieldset": {
+                            // borderColor: "#3F3B42",
+                            border: "none",
+                            // borderRadius: "15px",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "none",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "none",
+                          },
+                        },
+                        input: {
+                          "&::placeholder": {
+                            textOverflow: "ellipsis !important",
+                            color: "#fff !important",
+                          },
+                          fontSize: { xs: "20px", md: "24px" },
+                          fontWeight: 700,
+                          color: "#fff",
+                          "&::-webkit-outer-spin-button": {
+                            WebkitAppearance: "none",
+                            margin: 0,
+                          },
+                          "&::-webkit-inner-spin-button": {
+                            WebkitAppearance: "none",
+                            margin: 0,
+                          },
+                        },
+                        background: "transparent",
+                        width: "100%",
+                        color: "#fff",
+                      }}
+                      name="name"
+                      required={true}
+                    />
+                    <Typography
+                      sx={{
+                        color: "#fff",
+                        px: 0.5,
+                        fontSize: { xs: "20px", md: "24px" },
+                      }}
+                    >
+                      {oneCurrencyToUSDT
+                        ? (oneCurrencyToUSDT / tokendetails?.divider).toFixed(2)
+                        : "0"}
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box display="flex" alignItems="center" gap={1} mt={6} mb={3}>
                   <img src={Tch} alt="" />
@@ -561,56 +603,28 @@ const TechnaSwap = () => {
                     TCN
                   </StyledText>
                 </Box>
-                <TextField
-                  autoComplete="off"
-                  id="standard-name"
-                  onChange={(event) =>
-                    event.target.value < 0
-                      ? (event.target.value = 0)
-                      : event.target.value
-                  }
+                <Box
                   sx={{
-                    fontFamily: "Montserrat",
-                    "& label.Mui-focused": {
-                      color: "#fff",
-                    },
-                    "& .MuiInput-underline:after": {
-                      borderBottomColor: "transparent",
-                    },
-                    "& .MuiOutlinedInput-root": {
-                      "& fieldset": {
-                        borderColor: "#3F3B42",
-                        border: "2px solid #3F3B42",
-                        borderRadius: "15px",
-                      },
-                      "&:hover fieldset": {
-                        borderColor: "#3F3B42",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#3F3B42",
-                      },
-                    },
-                    input: {
-                      "&::placeholder": {
-                        textOverflow: "ellipsis !important",
-                        color: "#fff !important",
-                      },
-                      fontSize: { xs: "20px", md: "24px" },
-                      fontWeight: 700,
-                      color: "#FFF",
-                    },
-
-                    background: "transparent",
-                    width: "100%",
-                    color: "#fff",
+                    borderColor: "#3F3B42",
+                    border: "2px solid #3F3B42",
+                    borderRadius: "15px",
+                    color: "white",
+                    height: "3.5em",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
-                  name="name"
-                  type="text"
-                  placeholder={"0.00"}
-                  value={result}
-                  required={true}
-                  readOnly
-                />
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "24px",
+                      width: "100%",
+                      px: 1,
+                    }}
+                  >
+                    {result}
+                  </Typography>
+                </Box>
                 <Box
                   my="45px"
                   display="flex"
