@@ -184,6 +184,7 @@ const TechnaSwap = () => {
           1,
           parseUnits(amount.toString(), "18")
         );
+        console.log("data ether .........>", +data);
         setUSDTCurreny(+usdtToken);
         setResultstate(formatUnits(data));
       }
@@ -592,15 +593,18 @@ const TechnaSwap = () => {
                       }}
                     >
                       {oneCurrencyToUSDT
-                        ? (oneCurrencyToUSDT / tokendetails?.divider).toFixed(
-                            2
-                          ) + "$"
+                        ? "$" +
+                          (oneCurrencyToUSDT / tokendetails?.divider).toFixed(2)
                         : "0"}
                     </Typography>
                   </Box>
                 </Box>
                 <Box display="flex" alignItems="center" gap={1} mt={6} mb={3}>
-                  <img src={Tch} alt="" />
+                  <img
+                    src={Tch}
+                    alt=""
+                    style={{ height: "32px", width: "32px" }}
+                  />
                   <StyledText color="#fff" fontWeight={700}>
                     TCN
                   </StyledText>
