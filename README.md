@@ -1,4 +1,4 @@
-# Web3 Presale App
+# Web3.O Presale React App
 
 ![](./src/assets/presale.png)  
 
