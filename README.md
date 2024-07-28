@@ -60,4 +60,5 @@ Written in Solidity.
 Includes functions for token purchases and referral tracking.
 
  "Feel free to adjust the details according to your specific project setup and requirements. Let me know if there are any additional details you’d like to include!"
-
+![](./src/assets/presale.png)  
+![](./src/assets/wallat.png)  
