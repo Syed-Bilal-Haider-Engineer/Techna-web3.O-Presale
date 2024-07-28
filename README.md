@@ -5,11 +5,11 @@ This application is a Web3-powered presale platform where users can purchase tok
 The application supports various cryptocurrencies such as BNB and ETH. Users can also share referral links to earn rewards.
 
 # Technologies Used
-### Web3.js: JavaScript library for interacting with the Ethereum blockchain.
-### Blockchain: Ethereum or compatible blockchain where smart contracts are deployed.
-### React: Front-end library for building user interfaces.
-### Material-UI: Component library for Material Design styling.
-### Figma: A design tool for creating and translating designs into React components.
+#####  Web3.js: JavaScript library for interacting with the Ethereum blockchain.
+##### Blockchain: Ethereum or compatible blockchain where smart contracts are deployed.
+##### React: Front-end library for building user interfaces.
+##### Material-UI: Component library for Material Design styling.
+##### Figma: A design tool for creating and translating designs into React components.
 
 ### `Features`
 Support for multiple cryptocurrencies (e.g., BNB, ETH).
@@ -47,7 +47,8 @@ Click the "Purchase Tokens" button and confirm the transaction in your wallet.
 
 Share your unique referral link with others.
 Users who sign up using your link will be tracked for referral rewards.
-Smart Contract Deployment
+Smart Contract Deployment.
+
 # Deploying Contracts:
 
 Ensure your smart contract is deployed on the blockchain. Update the REACT_APP_CONTRACT_ADDRESS environment variable with the deployed contract address.
