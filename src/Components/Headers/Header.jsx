@@ -42,8 +42,6 @@ export default function Header() {
   const [state, setState] = React.useState({
     left: false,
   });
-  // const matches1 = useMediaQuery("(max-width:1279px)");
-
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event &&
@@ -118,7 +116,6 @@ export default function Header() {
       <Box
         sx={{
           background: [
-            // "rgba(24, 24, 24, 0.5)",
             "linear-gradient(123.56deg, #0E2929 28.46%, #150D1C 90.07%)",
           ],
           backdropFilter: "blur(27.5px)",
@@ -149,7 +146,7 @@ export default function Header() {
                           cursor: "pointer",
                           color: "#fff",
                         }}
-                      ></MenuIcon>
+                      />
                     </Button>
                     <Paper>
                       <SwipeableDrawer
@@ -171,7 +168,7 @@ export default function Header() {
                     WhitePaper
                   </StyledText>
 
-                  {account ? (
+                  {account? (
                     <StyledButton onClick={() => disconnect()}>
                       {account.slice(0, 4) + "..." + account.slice(-4)}
                     </StyledButton>
