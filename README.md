@@ -1,11 +1,14 @@
 # Web3 Presale App
 
+![](./src/assets/presale.png)  
+
+
 ## Overview
 This application is a Web3-powered presale platform where users can purchase tokens before they are available.
 The application supports various cryptocurrencies such as BNB and ETH. Users can also share referral links to earn rewards.
 
 ## Technologies Used
-#####  Web3.js: JavaScript library for interacting with the Ethereum blockchain.
+##### Web3.js: JavaScript library for interacting with the Ethereum blockchain.
 ##### Blockchain: Ethereum or compatible blockchain where smart contracts are deployed.
 ##### React: Front-end library for building user interfaces.
 ##### Material-UI: Component library for Material Design styling.
@@ -36,6 +39,8 @@ npm start
 ## Usage
 ### Connecting Wallet:
 
+![](./src/assets/wallat.png)  
+
 Ensure MetaMask or another Ethereum wallet is installed and configured.
 Click the "Connect Wallet" button on the application to connect your wallet.
 ### Buying Tokens:
@@ -59,6 +64,5 @@ Located in the contracts directory.
 Written in Solidity.
 Includes functions for token purchases and referral tracking.
 
- "Feel free to adjust the details according to your specific project setup and requirements. Let me know if there are any additional details you’d like to include!"
-![](./src/assets/presale.png)  
-![](./src/assets/wallat.png)  
+"Feel free to adjust the details according to your specific project setup and requirements. Let me know if there are any additional details you’d like to include!"
+
