@@ -4,7 +4,7 @@
 This application is a Web3-powered presale platform where users can purchase tokens before they are available.
 The application supports various cryptocurrencies such as BNB and ETH. Users can also share referral links to earn rewards.
 
-# Technologies Used
+## Technologies Used
 #####  Web3.js: JavaScript library for interacting with the Ethereum blockchain.
 ##### Blockchain: Ethereum or compatible blockchain where smart contracts are deployed.
 ##### React: Front-end library for building user interfaces.
@@ -18,7 +18,7 @@ User-friendly interface built with Material-UI.
 Integration with blockchain through Web3.js.
 Responsive design based on Figma designs.
 
-# Installation
+### Installation
 
  ## 1: Clone the repository:
  
@@ -33,27 +33,27 @@ npm install
 
 npm start
 
-# Usage
-## Connecting Wallet:
+## Usage
+### Connecting Wallet:
 
 Ensure MetaMask or another Ethereum wallet is installed and configured.
 Click the "Connect Wallet" button on the application to connect your wallet.
-# Buying Tokens:
+### Buying Tokens:
 
 Enter the amount of tokens you wish to purchase.
 Select the cryptocurrency you want to use (e.g., ETH, BNB).
 Click the "Purchase Tokens" button and confirm the transaction in your wallet.
-# Using Referral Links:
+### Using Referral Links:
 
 Share your unique referral link with others.
 Users who sign up using your link will be tracked for referral rewards.
 Smart Contract Deployment.
 
-# Deploying Contracts:
+### Deploying Contracts:
 
 Ensure your smart contract is deployed on the blockchain. Update the REACT_APP_CONTRACT_ADDRESS environment variable with the deployed contract address.
 
-# Smart Contract Code:
+### Smart Contract Code:
 
 Located in the contracts directory.
 Written in Solidity.
