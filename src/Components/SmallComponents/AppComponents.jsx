@@ -2,7 +2,6 @@ import {
   Alert,
   Box,
   Dialog,
-  Divider,
   InputBase,
   Snackbar,
   TextField,
@@ -13,9 +12,8 @@ import { Button } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
-// import { eth } from "./Images";
 import { styled } from "@mui/styles";
-import { eth, select, UsdT2, Busd, Udsc, bnb, matic } from "../Images";
+import { eth, UsdT2, Busd, Udsc, bnb, matic } from "../Images";
 
 export function ToastNotify({ alertState, setAlertState }) {
   return (
@@ -169,12 +167,10 @@ export function SelectInput({ selects, setselect, ...props }) {
   const matches = useMediaQuery("(min-width:1050px)");
 
   const [openDialog, setOpenDialog] = useState(false);
-  const [search, setSearch] = useState("");
   const [selecter, setSelecter] = useState({
     img: eth,
     tokens: "ETH",
   });
-  // console.log(selecter, "setSlecter");
 
   const tokenArray = [
     {
@@ -301,15 +297,11 @@ export function SelectInput({ selects, setselect, ...props }) {
                     0.0
                   </Box>
                 </Box>
-
-                {/* <Divider sx={{ background: "#66656E" }} /> */}
               </>
             );
           })}
         </Box>
       </Dialog>
-      {/*  */}
-
       <Box
         sx={{
           color: "#fff",
@@ -390,7 +382,6 @@ export function SelectInput({ selects, setselect, ...props }) {
           color: "#fff",
         }}
         name="name"
-        // InputProps={{}}
         required={true}
       />
     </>
@@ -401,7 +392,6 @@ export function SelectTextField({ selects, setselect, ...props }) {
     <>
       <TextField
         {...props}
-        // type="number"
         inputMode="numeric"
         autoComplete="off"
         id="standard-name"
@@ -448,7 +438,6 @@ export function SelectTextField({ selects, setselect, ...props }) {
           color: "#fff",
         }}
         name="name"
-        // InputProps={{}}
         required={true}
       />
     </>
