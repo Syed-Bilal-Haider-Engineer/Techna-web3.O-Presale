@@ -42,7 +42,6 @@ export function calculateGasMargin(value) {
     (value * BigNumber.from(10000).add(BigNumber.from(1000))) /
     BigNumber.from(10000)
   ).toFixed(0);
-  // return value;
 }
 //CalculatePayableGas
 export const gasEstimationPayable = async (account, fn, data, amount) => {

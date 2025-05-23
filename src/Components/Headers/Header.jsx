@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Container,
   Hidden,
@@ -14,7 +14,6 @@ import { makeStyles } from "@mui/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import clsx from "clsx";
 import { Logo } from "../Images";
-
 import { AppContext } from "../../utils";
 import { StyledButton, StyledText } from "../SmallComponents/AppComponents";
 
@@ -36,153 +35,100 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Header() {
+const Header = () => {
   const { account, connect, disconnect } = useContext(AppContext);
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    left: false,
-  });
-  const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === "keydown" && ["Tab", "Shift"].includes((event).key)) {
       return;
     }
-    setState({ ...state, [anchor]: open });
+    setDrawerOpen(open);
   };
-  const list = (anchor) => (
-    <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
+
+  const renderDrawerContent = () => (
+    <Box
+      className={clsx(classes.list)}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
     >
-      <Box display="flex" justifyContent="center">
-        <img width="140px" src={Logo} alt="" />
+      <Box display="flex" justifyContent="center" my={2}>
+        <img width="140px" src={Logo} alt="Logo" />
       </Box>
       <List>
-        {["Trade", "Earn", "Blog"].map((text, index) => (
-          <ListItem
-            button
-            style={{
-              justifyContent: "center",
-            }}
-            key={text}
-          >
+        {["Trade", "Earn", "Blog"].map((item) => (
+          <ListItem key={item} button sx={{ justifyContent: "center" }}>
             <ListItemText
-              style={{
-                textTransform: "capitalize",
+              primary={item}
+              sx={{
                 textAlign: "center",
-                textDecoration: "none",
-                cursor: "pointer",
+                textTransform: "capitalize",
                 color: "#ffffff",
+                cursor: "pointer",
               }}
-              primary={text}
             />
           </ListItem>
         ))}
       </List>
-      <Box
-        mb={1}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        flexDirection="column"
-      >
-        <StyledText
-          padding="9px 19px"
-          style={{ color: "#fff", background: "transparent" }}
-        >
+      <Box mb={1} display="flex" flexDirection="column" alignItems="center">
+        <StyledText padding="9px 19px" style={{ color: "#fff", background: "transparent" }}>
           WhitePaper
         </StyledText>
-        {account ? (
-          <StyledButton width="90%" onClick={() => disconnect()}>
-            {account.slice(0, 4) + "..." + account.slice(-4)}
-          </StyledButton>
-        ) : (
-          <StyledButton width="90%" onClick={() => connect()}>
-            Connect Wallet
-          </StyledButton>
-        )}
+        <StyledButton width="90%" onClick={account ? disconnect : connect}>
+          {account ? `${account.slice(0, 4)}...${account.slice(-4)}` : "Connect Wallet"}
+        </StyledButton>
       </Box>
-    </div>
+    </Box>
   );
-  return (
-    <>
-      <Box
-        sx={{
-          background: [
-            "linear-gradient(123.56deg, #0E2929 28.46%, #150D1C 90.07%)",
-          ],
-          backdropFilter: "blur(27.5px)",
-        }}
-        width="100%"
-        py={2}
-      >
-        <Container maxWidth="lg">
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
-              <img width="90%" src={Logo} alt="" />
-            </Box>
-            <Box>
-              <Hidden mdUp>
-                {["left"].map((anchor, i) => (
-                  <React.Fragment key={i}>
-                    <Button
-                      onClick={toggleDrawer(anchor, true)}
-                      style={{ zIndex: 1 }}
-                    >
-                      <MenuIcon
-                        style={{
-                          fontSize: "38px",
-                          cursor: "pointer",
-                          color: "#fff",
-                        }}
-                      />
-                    </Button>
-                    <Paper>
-                      <SwipeableDrawer
-                        classes={{ paper: classes.paper }}
-                        anchor={anchor}
-                        open={state[anchor]}
-                        onClose={toggleDrawer(anchor, false)}
-                        onOpen={toggleDrawer(anchor, true)}
-                      >
-                        {list(anchor)}
-                      </SwipeableDrawer>
-                    </Paper>
-                  </React.Fragment>
-                ))}
-              </Hidden>
-              <Hidden mdDown>
-                <Box display="flex" alignItems="center" gap={3}>
-                  <StyledText padding="9px 19px" color="#fff" fontWeight={700}>
-                    WhitePaper
-                  </StyledText>
 
-                  {account? (
-                    <StyledButton onClick={() => disconnect()}>
-                      {account.slice(0, 4) + "..." + account.slice(-4)}
-                    </StyledButton>
-                  ) : (
-                    <StyledButton padding="9px 19px" onClick={() => connect()}>
-                      Connect Wallet
-                    </StyledButton>
-                  )}
-                </Box>
-              </Hidden>
-            </Box>
+  return (
+    <Box
+      sx={{
+        background: "linear-gradient(123.56deg, #0E2929 28.46%, #150D1C 90.07%)",
+        backdropFilter: "blur(27.5px)",
+        py: 2,
+        width: "100%",
+      }}
+    >
+      <Container maxWidth="lg">
+        <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Box>
+            <img width="90%" src={Logo} alt="Logo" />
           </Box>
-        </Container>
-      </Box>
-    </>
+          <Box>
+            <Hidden mdUp>
+              <Button onClick={toggleDrawer(true)} sx={{ zIndex: 1 }}>
+                <MenuIcon sx={{ fontSize: 38, color: "#fff", cursor: "pointer" }} />
+              </Button>
+              <Paper>
+                <SwipeableDrawer
+                  anchor="left"
+                  open={drawerOpen}
+                  onClose={toggleDrawer(false)}
+                  onOpen={toggleDrawer(true)}
+                  classes={{ paper: classes.paper }}
+                >
+                  {renderDrawerContent()}
+                </SwipeableDrawer>
+              </Paper>
+            </Hidden>
+            <Hidden mdDown>
+              <Box display="flex" alignItems="center" gap={3}>
+                <StyledText padding="9px 19px" color="#fff" fontWeight={700}>
+                  WhitePaper
+                </StyledText>
+                <StyledButton onClick={account ? disconnect : connect} padding="9px 19px">
+                  {account ? `${account.slice(0, 4)}...${account.slice(-4)}` : "Connect Wallet"}
+                </StyledButton>
+              </Box>
+            </Hidden>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
-}
+};
+
+export default Header;

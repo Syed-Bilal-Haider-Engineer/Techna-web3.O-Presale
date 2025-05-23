@@ -50,6 +50,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
       "linear-gradient(to right, #0ac7bf, #00a0b2, #00799c, #00537c, #163055, #163055, #163055, #163055, #00537c, #00799c, #00a0b2, #0ac7bf)",
   },
 }));
+
 const TechnaSwap = () => {
   const { account, signer, connect } = useContext(AppContext);
   const [selectToken, setSelectToken] = useState(1);
@@ -71,6 +72,15 @@ const TechnaSwap = () => {
     phaseId: 0,
     divider: 0,
   });
+ 
+  const DECIMALS = {
+  1: "18", // ETH
+  2: "6",  // USDT
+  3: "6",  // USDC
+  4: "18", // BUSD
+  5: "18", // MATIC
+  6: "18", // BNB
+ };
 
   const ref_Address = refAddress ? refAddress : ownerAddress;
   const [selecter, setSelecter] = useState({
@@ -78,6 +88,7 @@ const TechnaSwap = () => {
     tokens: "ETH",
   });
   let decimal = "18";
+
   const readsMethods = async () => {
     setLoading(true);
     try {
@@ -98,13 +109,14 @@ const TechnaSwap = () => {
       });
       setLoading(false);
     } catch (error) {
-      console.log("reads methods error", error);
       setLoading(false);
     }
   };
+
   useEffect(() => {
     readsMethods();
   }, []);
+
   const getOwnerAddress = async () => {
     try {
       const owneraddress = await presaleContract.owner();
@@ -274,7 +286,8 @@ const TechnaSwap = () => {
         return toast.error("Please enter amount !");
       }
       setLoading(true);
-      let decimal = selectToken === 2 ? "6" : "18";
+
+      const decimal = DECIMALS[selectToken] || "18";
       let amount = parseUnits(writeAmount.toString(), decimal);
       if (tokenContract) {
         let tx = await tokenContract.approve(presaleAddress, amount);
@@ -297,6 +310,7 @@ const TechnaSwap = () => {
         await readsMethods();
         setLoading(false);
       }
+      
       if (!allCurrencyAddress) {
         const tx = await presaleContract.buyWithMatic(ref_Address, {
           value: amount,
@@ -311,21 +325,22 @@ const TechnaSwap = () => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error, "error-->");
-      return toast.error(error?.message?.slice(0, 30));
+      return toast.error(error?.message || "Transaction Failed");
     }
   };
+
   React.useEffect(() => {
-    async(() => {
+     const fetchTokenContract =  async(() => {
       try {
         if (allCurrencyAddress) {
           const contract = new ethers.Contract(allCurrencyAddress, abi, signer);
           setTokencontractstate(contract);
         }
-      } catch (err) {
-        console.log("approve error", err);
+      } catch (error) {
+       return toast.error(error?.message || "Transaction Failed");
       }
-    })();
+    });
+    fetchTokenContract();
   }, [allCurrencyAddress]);
 
   return (
